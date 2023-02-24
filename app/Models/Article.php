@@ -47,7 +47,7 @@ class Article extends Model
      */
     public function fleur()
     {
-        return $this->belongsTo(Fleu::class);
+        return $this->belongsTo(Fleur::class);
     }
 
     /**
@@ -78,5 +78,5 @@ class Article extends Model
     public function evenement()
     {
         return $this->belongsToMany(Evenement::class, 'lf_article_evenement');
-    }
+    } 
 }
