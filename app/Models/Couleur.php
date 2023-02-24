@@ -12,4 +12,14 @@ class Couleur extends Model
     protected $primaryKey = "id";
     protected $fillable = array('couleur');
     public $timestamps = false;
+
+        /**
+     * une couleur a plusieurs articles
+     *
+     * @return void
+     */
+    public function article()
+    {
+        return $this->hasMany(Article::class);
+    }
 }

@@ -12,4 +12,14 @@ class Ville extends Model
     protected $primaryKey = "id";
     protected $fillable = array('nom_ville','livrable');
     public $timestamps = false;
+
+   /**
+    * une ville a plusieurs adresses
+    *
+    * @return void
+    */
+    public function adresse()
+    {
+        return $this->hasMany(Adresse::class);
+    }
 }

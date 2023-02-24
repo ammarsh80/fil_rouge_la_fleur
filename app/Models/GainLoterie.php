@@ -12,4 +12,14 @@ class GainLoterie extends Model
     protected $primaryKey = "id";
     protected $fillable = array('lot','quantite_disponible');
     public $timestamps = false;
+
+       /**
+    * une gain loterie a plusieurs commande-client
+    *
+    * @return void
+    */
+    public function commandeClient()
+    {
+        return $this->hasMany(CommandeClient::class);
+    }
 }

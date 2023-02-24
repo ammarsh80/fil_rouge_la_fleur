@@ -12,4 +12,14 @@ class Categorie extends Model
     protected $primaryKey = "id";
     protected $fillable = array('nom_categorie');
     public $timestamps = false;
+
+    /**
+     * une catégorie a plusieurs articles
+     *
+     * @return void
+     */
+    public function article()
+    {
+        return $this->hasMany(Article::class);
+    }
 }

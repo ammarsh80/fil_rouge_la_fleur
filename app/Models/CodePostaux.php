@@ -12,4 +12,14 @@ class CodePostaux extends Model
     protected $primaryKey = "id";
     protected $fillable = array('code_postal');
     public $timestamps = false;
+
+    /**
+     * un code postal a plusieurs adresses
+     *
+     * @return void
+     */
+    public function adresse()
+    {
+        return $this->hasMany(Adresse::class);
+    }
 }

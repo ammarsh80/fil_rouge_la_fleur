@@ -12,4 +12,14 @@ class Evenement extends Model
     protected $primaryKey = "id";
     protected $fillable = array('nom_evenement');
     public $timestamps = false;
+
+    /**
+     * un evenement a plusieurs articles
+     *
+     * @return void
+     */
+    public function article()
+    {
+        return $this->belongsToMany(Article::class, 'lf_article_evenement');
+    }
 }

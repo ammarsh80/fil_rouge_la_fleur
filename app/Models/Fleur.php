@@ -12,4 +12,14 @@ class Fleur extends Model
     protected $primaryKey = "id";
     protected $fillable = array('nom_fleur');
     public $timestamps = false;
+
+    /**
+     * une fleur a plusieurs articles
+     *
+     * @return void
+     */
+    public function article()
+    {
+        return $this->hasMany(Article::class);
+    }
 }
