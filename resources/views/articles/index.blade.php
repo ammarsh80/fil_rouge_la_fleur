@@ -20,11 +20,12 @@
                             </tr>
                         </thead>
                         @foreach($articles as $article)
+                
                         <tr>
                             <td>
                                 <p>{{$article->id}}</p>
                             </td>
-                            <td><a href="{{route('articles.show', $article->id)}}">{{$article->etat}} </a>
+                            <td><a href="{{route('articles.show', $article->id)}}">{{$article->fleur['nom_fleur']}} </a>
                             </td>
                             <td>  <x-buttons.edit :action="route('articles.edit', $article->id)"></x-buttons.edit></td>
                             <td>  <x-buttons.show :action="route('articles.show', $article->id)"></x-buttons.show></td>

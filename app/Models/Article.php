@@ -36,10 +36,10 @@ class Article extends Model
      *
      * @return void
      */
-    public function couleur()
-    {
-        return $this->belongsTo(Couleur::class);
-    }
+    // public function couleur()
+    // {
+    //     return $this->belongsTo(Couleur::class);
+    // }
     /**
      * Un article appartient à une couleur
      *
@@ -47,7 +47,7 @@ class Article extends Model
      */
     public function fleur()
     {
-        return $this->belongsTo(Fleur::class);
+        return $this->belongsTo(Fleur::class, 'fleurs_id');
     }
 
     /**
