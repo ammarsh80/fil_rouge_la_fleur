@@ -22,24 +22,16 @@ class Article extends Model
     {
         return $this->belongsTo(Unite::class);
     }
-    /**
-     * Un article appartient à une catégorie
-     *
-     * @return void
-     */
-    public function categorie()
-    {
-        return $this->belongsTo(Categorie::class);
-    }
+
     /**
      * Un article appartient à une couleur
      *
      * @return void
      */
-    // public function couleur()
-    // {
-    //     return $this->belongsTo(Couleur::class);
-    // }
+    public function couleur()
+    {
+        return $this->belongsTo(Couleur::class, 'couleurs_id');
+    }
     /**
      * Un article appartient à une couleur
      *
@@ -69,7 +61,7 @@ class Article extends Model
         return $this->belongsToMany(CommandeClient::class, 'lf_ligne_commande_client');
     }
 
-    
+
     /**
      * un articles a plusieurs evenement
      *
@@ -78,5 +70,14 @@ class Article extends Model
     public function evenement()
     {
         return $this->belongsToMany(Evenement::class, 'lf_article_evenement');
-    } 
+    }
+    /**
+     * Un article appartient à plusieurs catégories
+     *
+     * @return void
+     */
+    public function categorie()
+    {
+        return $this->belongsToMany(Categorie::class, 'lf_article_categorie');
+    }
 }

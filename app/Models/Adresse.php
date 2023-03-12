@@ -20,7 +20,7 @@ class Adresse extends Model
      */
     public function ville()
     {
-        return $this->belongsTo(Ville::class);
+        return $this->belongsTo(Ville::class, 'villes_id');
     }
 
     /**
@@ -30,7 +30,7 @@ class Adresse extends Model
      */
     public function codePostal()
     {
-        return $this->belongsTo(CodePostaux::class);
+        return $this->belongsTo(CodePostaux::class, 'code_postaux_id');
     }
 
     /**

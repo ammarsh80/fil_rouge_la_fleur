@@ -20,7 +20,7 @@ class Fournisseur extends Model
      */
     public function adresse()
     {
-        return $this->belongsTo(Adresse::class);
+        return $this->belongsTo(Adresse::class, 'adresse_id');
     }
 
     /**

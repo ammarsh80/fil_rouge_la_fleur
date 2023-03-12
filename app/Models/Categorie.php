@@ -20,6 +20,6 @@ class Categorie extends Model
      */
     public function article()
     {
-        return $this->hasMany(Article::class);
+        return $this->belongsToMany(Article::class, 'lf_article_categorie');
     }
 }

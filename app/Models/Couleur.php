@@ -18,8 +18,8 @@ class Couleur extends Model
      *
      * @return void
      */
-    // public function article()
-    // {
-    //     return $this->hasMany(Article::class);
-    // }
+    public function article()
+    {
+        return $this->hasMany(Article::class);
+    }
 }

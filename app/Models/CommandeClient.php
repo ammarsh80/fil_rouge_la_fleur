@@ -21,7 +21,7 @@ class CommandeClient extends Model
      */
     public function gainLoterie()
     {
-        return $this->belongsTo(GainLoterie::class);
+        return $this->belongsTo(GainLoterie::class, 'gain_loteries_id');
     }
     /**
      * Une commande client appartient à un gain loterie
@@ -30,7 +30,7 @@ class CommandeClient extends Model
      */
     public function fraisLivraison()
     {
-        return $this->belongsTo(FraisLivraison::class);
+        return $this->belongsTo(FraisLivraison::class, 'frais_livraisons_id');
     }
     /**
      * Une commande client appartient à un client
@@ -39,16 +39,25 @@ class CommandeClient extends Model
      */
     public function client()
     {
-        return $this->belongsTo(Client::class);
+        return $this->belongsTo(Client::class, 'clients_id');
     }
     /**
      * Une commande client appartient à une adresse
      *
      * @return void
      */
-    public function adresse()
+    public function adresseLivraison()
     {
-        return $this->belongsTo(Adresse::class);
+        return $this->belongsTo(Adresse::class, 'adresses_livraison_id');
+    }
+    /**
+     * Une commande client appartient à une adresse
+     *
+     * @return void
+     */
+    public function adresseFacturation()
+    {
+        return $this->belongsTo(Adresse::class, 'adresses_facturation_id');
     }
 
     /**
