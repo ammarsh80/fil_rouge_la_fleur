@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Article;
 use App\Models\Couleur;
+use App\Models\Fleur;
 use Illuminate\Http\Request;
 
 class ArticleController extends Controller
@@ -34,7 +35,27 @@ class ArticleController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        if ($request->validate([
+            'nom_fleur' => "required|string|min:3|max:45|regex:/[a-zA-Z][a-zA-Z0-9À-ÿ]*('[a-zA-Z0-9À-ÿ]+)*/",
+            'description' => "string|min:3|max:255",
+            'couleur' => "string"
+    
+            ])) {
+    
+            $nom_fleur = $request->input('nom_fleur');
+            $description = $request->input('description');
+    
+            $article = new Article();
+            // $jeu->categorie_id = $request->input('categorie_id');
+    
+            $article->nom_fleur = $nom_fleur;
+            $article->description = $description;
+    
+            $article->save();
+            return redirect()->route('articles.show', ['articles' => $article->id]);
+        } else {
+            return redirect()->back();
+        }
     }
 
     /**
@@ -65,8 +86,74 @@ class ArticleController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        if ($request->validate([
+            'nom_fleur' => "required|string|min:3|max:45|regex:/[a-zA-Z][a-zA-Z0-9À-ÿ]*('[a-zA-Z0-9À-ÿ]+)*/",
+            'description' => "string|min:3|max:255",
+            'couleur' => "string",
+            'prix' => "string",
+            'nombre' => "int",
+            'date' => "datetime"
+            
+            ])) {
+
+                $nom_fleur = $request->input('nom_fleur');
+            $date_inventaire = $request->input('date_inventaire');
+            $description = $request->input('description');
+            $prix = $request->input('prix');
+            $nombre = $request->input('nombre');
+            $couleur = $request->input('couleur');
+            $article = Article::find($id);
+            // $fleur= Fleur::find($id);
+            // $fleur->nom_fleur()->associate($fleur);
+            // $fleur->save();
+
+            $article->date_inventaire = $date_inventaire;
+           $lolo= $article->fleur['nom_fleur'] = $nom_fleur;
+        //    var_dump($article->fleur['nom_fleur']);
+        //    die;
+            $article->description = $description;
+            $article->prix_unitaire = $prix;
+            $article->nombre = $nombre;
+            $couleur= Couleur::find($couleur);
+            $article->couleur()->associate($couleur);
+            $article->save();
+            // /////////////////////////////////////////////////////////////////////////////////////////////
+            // /////////////////////////////////////////////////////////////////////////////////////////////
+            // /////////////////////////////////////////////////////////////////////////////////////////////
+            var_dump($article);
+            die;
+            $lolo->save();
+            return redirect()->route('articles.show', $article->id);
+        } else {
+            return redirect()->back();
+        }
     }
+
+
+//     public function update(Request $request, string $id)
+// {
+//     $validatedData = $request->validate([
+//         'nom_fleur' => 'required|string|min:3|max:45|regex:/^[a-zA-Z][a-zA-Z0-9À-ÿ]*(\'[a-zA-Z0-9À-ÿ]+)*/',
+//         'description' => 'nullable|string|min:3|max:255',
+//         'couleur' => 'nullable|exists:couleurs,id',
+//         'prix' => 'nullable|numeric',
+//         'nombre' => 'nullable|integer',
+//         'date_inventaire' => 'nullable|date'
+//     ]);
+    
+//     $article = Article::findOrFail($id);
+
+//     $article->nom_fleur = $validatedData['nom_fleur'];
+//     $article->description = $validatedData['description'];
+//     $article->prix_unitaire = $validatedData['prix'];
+//     $article->nombre = $validatedData['nombre'];
+//     $article->couleur_id = $validatedData['couleur'];
+//     $article->date_inventaire = $validatedData['date_inventaire'];
+    
+//     $article->save();
+    
+//     return redirect()->route('articles.show', $article->id);
+// }
 
     /**
      * Remove the specified resource from storage.

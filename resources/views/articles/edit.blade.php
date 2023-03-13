@@ -8,12 +8,33 @@
                     <form action="{{route('articles.update',$article->id)}}" method="POST">
                         @method ('PUT') @csrf
                         <div class="flex flex-col max-w-lg">
-                            <label for="titre" class="block text-sm font-bold text-gray-700">
-                                {{__('Titre :')}}
+                            <label for="nom_fleur" class="block text-sm font-bold text-gray-700">
+                                {{__('Title :')}}
                             </label>
                         </div>
-                        <input type="text" name="titre" value="{{$article->fleur['nom_fleur']}}">
-                        @error('titre')
+                        <input type="text" name="nom_fleur" class="mb-3" value="{{$article->fleur['nom_fleur']}}">
+                        <div class="flex flex-col max-w-lg">
+                            <label for="date_inventaire" class="block text-sm font-bold text-gray-700">
+                                {{__('Inventory date :')}}
+                            </label>
+                        </div>
+                        <input type="datetime-local" name="date_inventaire" class="mb-3">
+                        <div class="flex flex-col max-w-lg">
+                            <label for="prix" class="block text-sm font-bold text-gray-700">
+                                {{__('Price :')}}
+                            </label>
+                        </div>
+                        <input type="text" name="prix" value="{{$article->prix_unitaire}}">
+                        @error('prix')
+                        <div class="text-red-500">{{$message}}</div>
+                        @enderror
+                        <div class="flex flex-col max-w-lg">
+                            <label for="nombre" class="block text-sm font-bold text-gray-700">
+                                {{__('Quantity (stems/grams) :')}}
+                            </label>
+                        </div>
+                        <input type="text" name="nombre" value="{{$article->nombre}}">
+                        @error('prix')
                         <div class="text-red-500">{{$message}}</div>
                         @enderror
                         <div>
@@ -40,7 +61,7 @@
                         </div>
                         <div>
                             <x-buttons.save :action="route('articles.update', $article->id)"></x-buttons.save>
-                            <x-buttons.cancel :action="route('articles.index',$article->id)"></x-buttons.cancel>
+                            <x-buttons.cancel :action="route('articles.index')"></x-buttons.cancel>
                         </div>
                     </form>
                 </div>

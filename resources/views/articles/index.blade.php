@@ -13,24 +13,26 @@
                     
                     <table>
                         <thead>
-                            <tr>
-                                <th>ID</th>
+                            <tr class=" bg-gray-200 pl-5">
+
+                                <th class="pl-3">ID</th>
                                 <th>Article</th>
                                 <th>Quantité (Tiges/grammes)</th>
                                 <th>Prix</th>
-                                <th colspan="2">ACTION</th>
+                                <th colspan="3">ACTION</th>
                                 <th><a href="{{route('articles.create')}}"><x-buttons.create>Creer</x-buttons.create><a></th>
                             </tr>
+
                         </thead>
 
                         @foreach($articles as $article)
                 
                         <tr>
-                            <td>
+                            <td class="pl-3">
                                 <p>{{$article->id}}</p>
                             </td>
 
-                            <td><a href="{{route('articles.show', $article->id)}}" class="ml-3">{{$article->fleur['nom_fleur']}} {{ $article->couleur ? $article->couleur['couleur'] : '' }}</a>
+                            <td class=" text-center"><a href="{{route('articles.show', $article->id)}}" class="ml-5">{{$article->fleur['nom_fleur']}} {{ $article->couleur ? $article->couleur['couleur'] : '' }}</a>
                             <td>
                                 <p class="ml-5 mr-5 text-green-600 text-center">{{$article->nombre}}</p>
                                 </td>
@@ -38,8 +40,8 @@
                                     <p class="ml-5 mr-5 text-green-600 text-center">{{$article->prix_unitaire}}</p>
                             </td>
                             </td>
-                            <td>  <x-buttons.edit :action="route('articles.edit', $article->id)"></x-buttons.edit></td>
                             <td>  <x-buttons.show :action="route('articles.show', $article->id)"></x-buttons.show></td>
+                            <td>  <x-buttons.edit :action="route('articles.edit', $article->id)"></x-buttons.edit></td>
                             <td>  <x-buttons.delete :action="route('articles.destroy',$article->id)"></x-buttons.delete></td>
                         </tr>
                         @endforeach
