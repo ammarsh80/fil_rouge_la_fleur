@@ -1,7 +1,14 @@
 <?php
 
 use App\Http\Controllers\ArticleController;
+use App\Http\Controllers\CategorieController;
+use App\Http\Controllers\CommandeClientController;
+use App\Http\Controllers\CommandeFornController;
+use App\Http\Controllers\CouleurController;
+use App\Http\Controllers\EvenementController;
+use App\Http\Controllers\FleurController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\UniteController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -31,5 +38,12 @@ Route::middleware('auth')->group(function () {
 
 Route::resource('clients', ClientController::class);
 Route::resource('articles', ArticleController::class);
+Route::resource('couleurs', CouleurController::class);
+Route::resource('fleurs', FleurController::class);
+Route::resource('categories', CategorieController::class);
+Route::resource('unites', UniteController::class);
+Route::resource('evenements', EvenementController::class);
+Route::resource('commandeClients', CommandeClientController::class);
+Route::resource('commandeForns', CommandeFornController::class);
 
 require __DIR__.'/auth.php';

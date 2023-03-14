@@ -21,9 +21,36 @@
                         {{ __('Items') }}
                     </x-nav-link>
                 </div>
+                <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
+                    <x-nav-link :href="route('couleurs.index')" :active="request()->routeIs('dashboard')">
+                        {{ __('Color') }}
+                    </x-nav-link>
+                </div>
+                <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
+                    <x-nav-link :href="route('fleurs.index')" :active="request()->routeIs('dashboard')">
+                        {{ __('Name of flower') }}
+                    </x-nav-link>
+                </div>
+                <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
+                    <x-nav-link :href="route('categories.index')" :active="request()->routeIs('dashboard')">
+                        {{ __('Categorie') }}
+                    </x-nav-link>
+                </div>
+                <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
+                    <x-nav-link :href="route('unites.index')" :active="request()->routeIs('dashboard')">
+                        {{ __('Unit') }}
+                    </x-nav-link>
+                </div>
+                <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
+                    <x-nav-link :href="route('evenements.index')" :active="request()->routeIs('dashboard')">
+                        {{ __('Events') }}
+                    </x-nav-link>
+                </div>
+
+
             </div>
 
-            
+
             <!-- Settings Dropdown -->
             <div class="hidden sm:flex sm:items-center sm:ml-6">
                 <x-dropdown align="right" width="48">
@@ -48,8 +75,7 @@
                         <form method="POST" action="{{ route('logout') }}">
                             @csrf
 
-                            <x-dropdown-link :href="route('logout')"
-                                    onclick="event.preventDefault();
+                            <x-dropdown-link :href="route('logout')" onclick="event.preventDefault();
                                                 this.closest('form').submit();">
                                 {{ __('Log Out') }}
                             </x-dropdown-link>
@@ -94,8 +120,7 @@
                 <form method="POST" action="{{ route('logout') }}">
                     @csrf
 
-                    <x-responsive-nav-link :href="route('logout')"
-                            onclick="event.preventDefault();
+                    <x-responsive-nav-link :href="route('logout')" onclick="event.preventDefault();
                                         this.closest('form').submit();">
                         {{ __('Log Out') }}
                     </x-responsive-nav-link>
@@ -104,3 +129,17 @@
         </div>
     </div>
 </nav>
+
+<div class="flex justify-center items-center bg-gray-600">
+    <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex bg-green-100 p-1 rounded">
+        <x-nav-link :href="route('commandeForns.index')" :active="request()->routeIs('dashboard')">
+            {{ __('Order from suppliers') }}
+        </x-nav-link>
+    </div>
+    <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex bg-green-100 p-1 rounded">
+        <x-nav-link :href="route('commandeClients.index')" :active="request()->routeIs('dashboard')">
+            {{ __('Customer order') }}
+        </x-nav-link>
+    </div>
+
+</div>

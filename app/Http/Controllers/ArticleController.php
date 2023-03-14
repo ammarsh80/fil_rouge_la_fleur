@@ -27,7 +27,8 @@ class ArticleController extends Controller
      */
     public function create()
     {
-        //
+        $article = new Article();
+        return view('articles.create', ['article' => $article, 'titre' => $article]);
     }
 
     /**
@@ -108,21 +109,15 @@ class ArticleController extends Controller
             // $fleur->save();
 
             $article->date_inventaire = $date_inventaire;
-           $lolo= $article->fleur['nom_fleur'] = $nom_fleur;
-        //    var_dump($article->fleur['nom_fleur']);
-        //    die;
+           $article->fleur['nom_fleur'] = $nom_fleur;
+       
             $article->description = $description;
             $article->prix_unitaire = $prix;
             $article->nombre = $nombre;
             $couleur= Couleur::find($couleur);
             $article->couleur()->associate($couleur);
             $article->save();
-            // /////////////////////////////////////////////////////////////////////////////////////////////
-            // /////////////////////////////////////////////////////////////////////////////////////////////
-            // /////////////////////////////////////////////////////////////////////////////////////////////
-            var_dump($article);
-            die;
-            $lolo->save();
+          
             return redirect()->route('articles.show', $article->id);
         } else {
             return redirect()->back();
