@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Couleur;
 use Illuminate\Http\Request;
 
 class CouleurController extends Controller
@@ -59,6 +60,7 @@ class CouleurController extends Controller
      */
     public function destroy(string $id)
     {
-        //
-    }
+        Couleur::destroy($id);
+        return redirect()->route('couleur.index'); 
+        }
 }

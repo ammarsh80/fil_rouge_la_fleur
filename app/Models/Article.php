@@ -10,7 +10,7 @@ class Article extends Model
     use HasFactory;
     protected $table = "lf_articles";
     protected $primaryKey = "id";
-    protected $fillable = array('etat', 'complement_rue');
+    protected $fillable = array('descritpion','etat', 'quantite_stock', 'date_inventaire','prix_unitaire', 'nombre');
     public $timestamps = false;
 
     /**
@@ -20,7 +20,7 @@ class Article extends Model
      */
     public function unite()
     {
-        return $this->belongsTo(Unite::class);
+        return $this->belongsTo(Unite::class, 'unites_id');
     }
 
     /**

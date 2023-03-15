@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Fleur;
 use Illuminate\Http\Request;
 
 class FleurController extends Controller
@@ -59,6 +60,7 @@ class FleurController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        Fleur::destroy($id);
+        return redirect()->route('fleurs.index'); 
     }
 }

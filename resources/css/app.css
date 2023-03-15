@@ -10,3 +10,14 @@
 .article-reponse{
     font-size: 1em;
 }
+
+
+.btn_commande_fournisseurs,
+.btn_commande_client{
+    background-color: rgb(5, 145, 133) !important;
+}
+
+.btn_commande_fournisseurs :hover,
+.btn_commande_client :hover{
+    color: rgb(205, 228, 200) !important;
+}

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Categorie;
 use Illuminate\Http\Request;
 
 class CategorieController extends Controller
@@ -11,8 +12,12 @@ class CategorieController extends Controller
      */
     public function index()
     {
-        echo 'ici catégorie';
-    }
+         // $article = Article::orderBy('id', 'asc')->get();
+         $categorie = Categorie::with(['article'])->get();
+         
+         // return view('articles.index', ['articles' => $article]);  
+         return view('categories.index', ['categories'=>$categorie]); 
+     }
 
     /**
      * Show the form for creating a new resource.
@@ -33,9 +38,13 @@ class CategorieController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
+    public function show($id)
     {
-        //
+        $categorie = Categorie::find($id);
+        $article = $categorie->article;
+        //    return view('categories.show', ['toto' => $id, 'categories' => $categorie]);   
+        return view('categories.show', compact('categorie', 'article'));
+
     }
 
     /**
@@ -59,6 +68,7 @@ class CategorieController extends Controller
      */
     public function destroy(string $id)
     {
-        //
-    }
+        Categorie::destroy($id);
+        return redirect()->route('categories.index');   
+     }
 }

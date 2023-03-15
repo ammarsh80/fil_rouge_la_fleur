@@ -131,12 +131,12 @@
 </nav>
 
 <div class="flex justify-center items-center bg-gray-600">
-    <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex bg-green-100 p-1 rounded">
+    <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex p-1 rounded btn_commande_fournisseurs">
         <x-nav-link :href="route('commandeForns.index')" :active="request()->routeIs('dashboard')">
             {{ __('Order from suppliers') }}
         </x-nav-link>
     </div>
-    <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex bg-green-100 p-1 rounded">
+    <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex p-1 rounded btn_commande_client">
         <x-nav-link :href="route('commandeClients.index')" :active="request()->routeIs('dashboard')">
             {{ __('Customer order') }}
         </x-nav-link>

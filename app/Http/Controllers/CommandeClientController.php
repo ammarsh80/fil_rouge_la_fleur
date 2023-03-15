@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\CommandeClient;
 use Illuminate\Http\Request;
 
 class CommandeClientController extends Controller
@@ -59,6 +60,7 @@ class CommandeClientController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        CommandeClient::destroy($id);
+        return redirect()->route('commandeClients.index'); 
     }
 }

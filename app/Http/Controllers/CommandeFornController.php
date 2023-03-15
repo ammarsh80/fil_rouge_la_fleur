@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\CommandeFournisseur;
 use Illuminate\Http\Request;
 
 class CommandeFornController extends Controller
@@ -59,6 +60,7 @@ class CommandeFornController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        CommandeFournisseur::destroy($id);
+        return redirect()->route('commandeFournisseur.index'); 
     }
 }
