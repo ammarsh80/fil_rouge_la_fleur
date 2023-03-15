@@ -52,7 +52,9 @@ class CategorieController extends Controller
      */
     public function edit(string $id)
     {
-        //
+        $categorie = Categorie::find($id);
+        // return view('categories.edit', ['toto' => $id, 'categorie' => $categories]);    
+        return view('categories.edit', compact('categorie'));
     }
 
     /**
@@ -60,7 +62,20 @@ class CategorieController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        if ($request->validate([
+            'nom_categorie' => "required|string|min:3|max:45|regex:/[a-zA-Z][a-zA-Z0-9À-ÿ]*('[a-zA-Z0-9À-ÿ]+)*/"
+            ])) {
+
+            $nom_categorie = $request->input('nom_categorie');
+            $categorie = Categorie::find($id);
+            $categorie->nom_categorie = $nom_categorie;
+            $categorie->save();
+            return redirect()->route('categories.show', $categorie->id);
+        } else {
+            return redirect()->back();
+        }  
+
+        
     }
 
     /**

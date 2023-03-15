@@ -16,6 +16,8 @@
                     <div>
                         <x-buttons.edit :action="route('categories.edit', $categorie->id)"></x-buttons.edit>
                         <x-buttons.delete :action="route('categories.destroy',$categorie->id)"></x-buttons.delete>
+                        <x-buttons.cancel :action="route('categories.index',$categorie->id)"></x-buttons.cancel>
+
                     </div>
                 </div>
             </div>
