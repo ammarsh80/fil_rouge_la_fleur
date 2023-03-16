@@ -1,7 +1,7 @@
 <x-app-layout>
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-orange-300 leading-tight">
-            {{ __('list of all categories') }}
+            {{ __('list of all events') }}
      
         </h2>
     </x-slot>
@@ -16,26 +16,26 @@
                             <tr class=" bg-gray-200 pl-5">
 
                                 <th class="pl-3">ID</th>
-                                <th>Catégorie</th>
+                                <th>Évènement </th>
                                 <th colspan="3">ACTION</th>
-                                <th><a href="{{route('categories.create')}}"><x-buttons.create>Creer</x-buttons.create><a></th>
+                                <th><a href="{{route('evenements.create')}}"><x-buttons.create>Creer</x-buttons.create><a></th>
                             </tr>
 
                         </thead>
 
-                        @foreach($categories as $categorie)
+                        @foreach($evenements  as $evenement)
                 
                         <tr>
                             <td class="pl-3">
-                                <p>{{$categorie->id}}</p>
+                                <p>{{$evenement->id}}</p>
                             </td>
 
-                            <td class="text-center ml-10 mr-10" style="width:300px;"><a href="{{route('categories.show', $categorie->id)}}">{{$categorie->nom_categorie}}</a>
+                            <td class="text-center ml-10 mr-10" style="width:300px;"><a href="{{route('evenements.show', $evenement->id)}}">{{$evenement->nom_evenement}}</a>
                            
                             </td>
-                            <td>  <x-buttons.show :action="route('categories.show', $categorie->id)"></x-buttons.show></td>
-                            <td>  <x-buttons.edit :action="route('categories.edit', $categorie->id)"></x-buttons.edit></td>
-                            <td>  <x-buttons.delete :action="route('categories.destroy',$categorie->id)"></x-buttons.delete></td>
+                            <td>  <x-buttons.show :action="route('evenements.show', $evenement->id)"></x-buttons.show></td>
+                            <td>  <x-buttons.edit :action="route('evenements.edit', $evenement->id)"></x-buttons.edit></td>
+                            <td>  <x-buttons.delete :action="route('evenements.destroy',$evenement->id)"></x-buttons.delete></td>
                         </tr>
                         @endforeach
                     </table>

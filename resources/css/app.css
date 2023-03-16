@@ -14,10 +14,17 @@
 
 .btn_commande_fournisseurs,
 .btn_commande_client{
-    background-color: rgb(5, 145, 133) !important;
+    width: 200px;
+    background-color: rgb(6, 46, 147) !important;
+    border: 5px ridge rgb(241, 200, 175);
+    margin: 2px;
+    display: flex;
+    justify-content: center;
 }
 
 .btn_commande_fournisseurs :hover,
 .btn_commande_client :hover{
-    color: rgb(205, 228, 200) !important;
+    /* color: rgb(205, 228, 200) !important; */
+    color: rgb(55, 233, 15) !important;
+    transform: translateY(1px);
 }

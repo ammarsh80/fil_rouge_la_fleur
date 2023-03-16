@@ -130,8 +130,8 @@
     </div>
 </nav>
 
-<div class="flex justify-center items-center bg-gray-600">
-    <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex p-1 rounded btn_commande_fournisseurs">
+<div class="flex justify-center items-center bg-gray-300 pt-1 pb-1">
+    <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex p-1 rounded btn_commande_fournisseurs ">
         <x-nav-link :href="route('commandeForns.index')" :active="request()->routeIs('dashboard')">
             {{ __('Order from suppliers') }}
         </x-nav-link>

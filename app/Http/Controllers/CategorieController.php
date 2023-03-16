@@ -12,19 +12,20 @@ class CategorieController extends Controller
      */
     public function index()
     {
-         // $article = Article::orderBy('id', 'asc')->get();
-         $categorie = Categorie::with(['article'])->get();
-         
-         // return view('articles.index', ['articles' => $article]);  
-         return view('categories.index', ['categories'=>$categorie]); 
-     }
+        // $article = Article::orderBy('id', 'asc')->get();
+        $categorie = Categorie::with(['article'])->get();
+
+        // return view('articles.index', ['articles' => $article]);  
+        return view('categories.index', ['categories' => $categorie]);
+    }
 
     /**
      * Show the form for creating a new resource.
      */
     public function create()
     {
-        //
+        $categorie = new Categorie();
+        return view('categories.create', ['categorie' => $categorie, 'titre' => $categorie]);
     }
 
     /**
@@ -32,7 +33,22 @@ class CategorieController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        if ($request->validate([
+            'nom_categorie' => "required|string|min:3|max:45|regex:/[a-zA-Z][a-zA-Z0-9À-ÿ]*('[a-zA-Z0-9À-ÿ]+)*/",
+
+        ])) {
+
+            $nom_categorie = $request->input('nom_categorie');
+
+            $categorie = new Categorie();
+            // $jeu->categorie_id = $request->input('categorie_id');
+            $categorie->nom_categorie = $nom_categorie;
+            $categorie->save();
+            return redirect()->route('categories.show', ['category' => $categorie->id]);
+
+        } else {
+            return redirect()->back();
+        }
     }
 
     /**
@@ -44,7 +60,6 @@ class CategorieController extends Controller
         $article = $categorie->article;
         //    return view('categories.show', ['toto' => $id, 'categories' => $categorie]);   
         return view('categories.show', compact('categorie', 'article'));
-
     }
 
     /**
@@ -64,7 +79,7 @@ class CategorieController extends Controller
     {
         if ($request->validate([
             'nom_categorie' => "required|string|min:3|max:45|regex:/[a-zA-Z][a-zA-Z0-9À-ÿ]*('[a-zA-Z0-9À-ÿ]+)*/"
-            ])) {
+        ])) {
 
             $nom_categorie = $request->input('nom_categorie');
             $categorie = Categorie::find($id);
@@ -73,9 +88,7 @@ class CategorieController extends Controller
             return redirect()->route('categories.show', $categorie->id);
         } else {
             return redirect()->back();
-        }  
-
-        
+        }
     }
 
     /**
@@ -84,6 +97,6 @@ class CategorieController extends Controller
     public function destroy(string $id)
     {
         Categorie::destroy($id);
-        return redirect()->route('categories.index');   
-     }
+        return redirect()->route('categories.index');
+    }
 }

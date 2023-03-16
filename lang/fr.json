@@ -90,9 +90,11 @@
     "Name of flower": "Nom de Fleur",
     "Categorie": "Catégorie",
     "Unit": "Unité",
-    "Events": "Evenements",
+    "Events": "Évènements",
     "Customer order": "Commande-Clients",
     "Order from suppliers": "Commande-Fournisseurs",
+    "add the name of the new categorie": "Ajouter le nom de la nouvelle catégorie ",
+    "add the name of the new event": "Ajouter le nom du nouvel évènement",
 
     "Your email address is unverified.": "Votre adresse e-mail n'est pas vérifiée."
 
