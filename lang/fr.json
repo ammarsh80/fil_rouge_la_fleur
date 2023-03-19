@@ -83,7 +83,7 @@
     "Items": "Articles",
     "Price :": "Prix :",
     "Title :": "Titre :",
-    "Quantity (stems/grams) :": "Quantité (Tiges/grammes) :",
+    "Quantity (ex: 1, 2 ..etc) :": "Quantité (ex: 1, 2 ..etc) :",
     "Inventory date :": "Date d'inventaire :",
     "add the name of the new item": "Ajouter le nom du nouveau article",
     "Color": "Couleur",
