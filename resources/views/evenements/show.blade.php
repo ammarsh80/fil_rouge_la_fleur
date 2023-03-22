@@ -4,7 +4,7 @@
             <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
                 <div class="p-6 text-gray-900">
                     <hr><br>
-                    <h1>Détails da leévènement numéro {{$evenement->id}}</h1><br>
+                    <h1>Détails da l'évènement numéro {{$evenement->id}}</h1><br>
                     <hr>
                     <h2 style="font-weight: bold; font-size:1.5em;">Titre : {{$evenement->nom_evenement}}</h2>
                     <p>{{__('Liste de tous les articles liés à cet évènement')}}:</p>

@@ -22,23 +22,8 @@
                     </x-nav-link>
                 </div>
                 <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
-                    <x-nav-link :href="route('couleurs.index')" :active="request()->routeIs('dashboard')">
-                        {{ __('Color') }}
-                    </x-nav-link>
-                </div>
-                <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
-                    <x-nav-link :href="route('fleurs.index')" :active="request()->routeIs('dashboard')">
-                        {{ __('Name of flower') }}
-                    </x-nav-link>
-                </div>
-                <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
                     <x-nav-link :href="route('categories.index')" :active="request()->routeIs('dashboard')">
                         {{ __('Categorie') }}
-                    </x-nav-link>
-                </div>
-                <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
-                    <x-nav-link :href="route('unites.index')" :active="request()->routeIs('dashboard')">
-                        {{ __('Unit') }}
                     </x-nav-link>
                 </div>
                 <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
@@ -46,6 +31,23 @@
                         {{ __('Events') }}
                     </x-nav-link>
                 </div>
+           
+                <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
+                    <x-nav-link :href="route('fleurs.index')" :active="request()->routeIs('dashboard')">
+                        {{ __('Name of flower') }}
+                    </x-nav-link>
+                </div>
+                <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
+                    <x-nav-link :href="route('couleurs.index')" :active="request()->routeIs('dashboard')">
+                        {{ __('Color') }}
+                    </x-nav-link>
+                </div>
+                <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
+                    <x-nav-link :href="route('unites.index')" :active="request()->routeIs('dashboard')">
+                        {{ __('Unit') }}
+                    </x-nav-link>
+                </div>
+           
 
 
             </div>
