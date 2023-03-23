@@ -15,8 +15,9 @@
                
                         <div> 
                             <x-buttons.save :action="route('evenements.store')"></x-buttons.save>
+                            <x-buttons.cancel :action="route('evenements.index')"></x-buttons.cancel>
+                        </div>
                     </form>
-                    <x-buttons.cancel :action="route('evenements.index')"></x-buttons.cancel>
                 </div>
             </div>
         </div>

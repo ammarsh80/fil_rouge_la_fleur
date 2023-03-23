@@ -7,7 +7,7 @@
                     <h1>Détails du l'article numéro {{$article->id}}</h1><br>
                     <hr>
                     <h2 style="font-weight: bold; font-size:1.5em;">{{$article->fleur['nom_fleur']}}</h2>
-                   <hr>
+                    <hr>
                     <div class="flex p-6 text-gray-900">
                         <ul>
 
@@ -21,14 +21,24 @@
                             <li class="font-bold text-xl article-info">Prix: <span class="font-normal text-s article-reponse">{{$article->prix_unitaire}}</span></li>
                             <li class="font-bold text-xl article-info">Description (optionnelle): <span class="font-normal text-s article-reponse">{{$article->description}}</span></li>
                             <!-- <li class="font-bold text-xl article-info">Catégorie: <span class="font-normal text-s article-reponse">{{ explode('"',$article->categorie)[5] }}</span></li> -->
-                            <li class="font-bold text-xl article-info">Catégorie: <span class="font-normal text-s article-reponse">{{ json_decode($article->categorie)[0]->nom_categorie }}</span></li>
-                            <li class="font-bold text-xl article-info">Évènement: <span class="font-normal text-s article-reponse">{{ json_decode($article->evenement)[0]->nom_evenement }}</span></li>
-                       <li>
+                            <li class="font-bold text-xl article-info">Catégorie: <span class="font-normal text-s article-reponse">Liste des catégories auxquelles appartient cet article :</span></li>
+                            <ul class="p-1 mb-5">
+                                @foreach($article->categorie as $categorie)
+                                <li><a href="{{route('categories.show', $categorie->id)}}">{{$categorie->nom_categorie}}</a></li>
+                                @endforeach
+                                
+                            </ul>
 
-                       </li>
+                            <li class="font-bold text-xl article-info">Évènement: <span class="font-normal text-s article-reponse">Liste des évènements auxquels appartient cet article :</span></li>
+                            <ul class="p-1 mb-5">
+                                @foreach($article->evenement as $evenement)
+                                <li><a href="{{route('evenements.show', $evenement->id)}}">{{$evenement->nom_evenement}}</a></li>
+                                @endforeach
+                                
+                            </ul>
+                            <!-- <li class="font-bold text-xl article-info">Évènement: <span class="font-normal text-s article-reponse">{{ json_decode($article->evenement)[0]->nom_evenement }}</span></li> -->
+
                         </ul>
-
-                    </ul>
                     </div>
                     <hr>
 

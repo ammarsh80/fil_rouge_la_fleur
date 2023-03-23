@@ -21,8 +21,9 @@
                         </div>
                         <div> 
                             <x-buttons.save :action="route('articles.store')"></x-buttons.save>
+                            <x-buttons.cancel :action="route('articles.index')"></x-buttons.cancel>
+                        </div>
                     </form>
-                    <x-buttons.cancel :action="route('articles.index')"></x-buttons.cancel>
                 </div>
             </div>
         </div>

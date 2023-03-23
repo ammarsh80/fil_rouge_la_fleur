@@ -15,8 +15,9 @@
                
                         <div> 
                             <x-buttons.save :action="route('couleurs.store')"></x-buttons.save>
+                            <x-buttons.cancel :action="route('couleurs.index')"></x-buttons.cancel>
+                        </div>
                     </form>
-                    <x-buttons.cancel :action="route('couleurs.index')"></x-buttons.cancel>
                 </div>
             </div>
         </div>

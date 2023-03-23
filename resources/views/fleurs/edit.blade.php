@@ -18,8 +18,9 @@
                         @enderror
                         <div>
                             <x-buttons.save :action="route('fleurs.update', $fleur->id)"></x-buttons.save>
+                            <x-buttons.cancel :action="route('fleurs.index',$fleur->id)"></x-buttons.cancel>
+                        </div>
                     </form>
-                    <x-buttons.cancel :action="route('fleurs.index',$fleur->id)"></x-buttons.cancel>
                 </div>
             </div>
         </div>
