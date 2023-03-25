@@ -46,4 +46,8 @@ Route::resource('evenements', EvenementController::class);
 Route::resource('commandeClients', CommandeClientController::class);
 Route::resource('commandeForns', CommandeFornController::class);
 
+Route::post('articles/{id}/attach', [ArticleController::class, 'attach'])->name('articles.attach');
+Route::get('articles/{id_article}/detach/{id_categorie}', [ArticleController::class, 'detach'])->name('articles.detach');
+Route::get('articles/{id_article}/detach/{id_evenement}', [ArticleController::class, 'detach'])->name('articles.detach');
+
 require __DIR__.'/auth.php';

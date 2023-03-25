@@ -18,7 +18,7 @@
                                 <th class="pl-3">ID</th>
                                 <th>Unité </th>
                                 <th>Taille </th>
-                                <th colspan="3">ACTION</th>
+                                <th colspan="2">ACTION</th>
                                 <th><a href="{{route('unites.create')}}"><x-buttons.create>Creer</x-buttons.create><a></th>
                             </tr>
 

@@ -15,7 +15,7 @@
                
                         <div>
                             <label for="nouvelle_taille" class="block text-sm font-bold text-gray-700">
-                                {{__('Taille :')}}
+                                {{__('Taille (optionnelle):')}}
                             </label>
                         </div>
                         <input type="text" name="nouvelle_taille">

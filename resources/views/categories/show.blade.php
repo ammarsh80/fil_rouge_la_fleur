@@ -10,7 +10,7 @@
                     <p>{{__('Liste de tous les articles de cette catégorie')}}:</p>
                     <ul class="list-disc">
                     @foreach($article as $article)
-                        <li><a href="{{route('categories.show', $categorie->id)}}">{{$article->fleur['nom_fleur']}}</a></li>
+                        <li><a href="{{route('articles.show', $article->id)}}">{{$article->fleur['nom_fleur']}}</a></li>
                         @endforeach
                     </ul>
                     <div>

@@ -3,7 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Models\Article;
+use App\Models\Categorie;
 use App\Models\Couleur;
+use App\Models\Evenement;
 use App\Models\Fleur;
 use App\Models\Unite;
 use Illuminate\Http\Request;
@@ -28,7 +30,17 @@ class ArticleController extends Controller
     public function create()
     {
         $article = new Article();
-        return view('articles.create', ['article' => $article, 'titre' => $article]);
+        $articles = Article::with(['fleur', 'couleur', 'unite'])->get();
+        $fleurs = Fleur::orderBy('id', 'asc')->get();
+        $couleurs = Couleur::orderBy('id', 'asc')->get();
+        $unites = Unite::orderBy('id', 'asc')->get();
+        $categories = Categorie::orderBy('id', 'asc')->get();
+        $evenements = Evenement::orderBy('id', 'asc')->get();
+
+        return view('articles.create', [
+            'article' => $article, 'articles' => $articles, 'couleurs' => $couleurs,
+            'unites' => $unites, 'fleurs' => $fleurs, 'categories' => $categories, 'evenements' => $evenements,
+        ]);
     }
 
     /**
@@ -36,24 +48,77 @@ class ArticleController extends Controller
      */
     public function store(Request $request)
     {
+        // if ($request->validate([
+        //     'nom_fleur' => "required|string|min:3|max:45|regex:/[a-zA-Z][a-zA-Z0-9À-ÿ]*('[a-zA-Z0-9À-ÿ]+)*/",
+        //     'description' => "string|min:3|max:255",
+        //     'couleur' => "string"
+
+        // ])) {
+
+        //     $nom_fleur = $request->input('nom_fleur');
+        //     $description = $request->input('description');
+
+        //     $article = new Article();
+        //     // $jeu->categorie_id = $request->input('categorie_id');
+
+        //     $article->nom_fleur = $nom_fleur;
+        //     $article->description = $description;
+
+        //     $article->save();
+        //     return redirect()->route('articles.show', ['articles' => $article->id]);
+        // } else {
+        //     return redirect()->back();
+        // }
+
         if ($request->validate([
-            'nom_fleur' => "required|string|min:3|max:45|regex:/[a-zA-Z][a-zA-Z0-9À-ÿ]*('[a-zA-Z0-9À-ÿ]+)*/",
-            'description' => "string|min:3|max:255",
-            'couleur' => "string"
+            'nom_fleur' => "string",
+            'etat' => "string",
+            'date' => "datetime",
+            'quantite_stock' => "int",
+            'prix_unitaire' => "numeric",  // à corriger et mettre decimal après test..
+            'nombre' => "int",
+            'nom_unite' => "string",
+            'taille' => "string",
+            'couleur' => "string",
+            'categorie' => "string",
+            'evenement' => "string",
+            'description' => "string|min:3|max:255|regex:/[a-zA-Z][a-zA-Z0-9À-ÿ]*('[a-zA-Z0-9À-ÿ]+)*/",
 
         ])) {
 
             $nom_fleur = $request->input('nom_fleur');
+
+            $etat = $request->input('etat');
+            $date_inventaire = $request->input('date_inventaire');
+            $quantite_stock = $request->input('quantite_stock');
+            $prix_unitaire = $request->input('prix_unitaire');
+            $nombre = $request->input('nombre');
+            $categorie = $request->input('categorie');
+            $evenement = $request->input('evenement');
+
+
+            $couleur = $request->input('couleur');
+            $nom_unite = $request->input('nom_unite');
+
             $description = $request->input('description');
-
             $article = new Article();
-            // $jeu->categorie_id = $request->input('categorie_id');
 
-            $article->nom_fleur = $nom_fleur;
+        
+            $article->couleurs_id =$couleur;
+            $article->unites_id =$nom_unite;
+            $article->fleurs_id =$nom_fleur;
+        
+
+            $article->etat = $etat;
+            $article->date_inventaire = $date_inventaire;
+            $article->quantite_stock = $quantite_stock;
             $article->description = $description;
-
+            $article->prix_unitaire = $prix_unitaire;
+            $article->nombre = $nombre;
+            // $article->couleur()->associate($couleur);
             $article->save();
-            return redirect()->route('articles.show', ['articles' => $article->id]);
+        
+            return redirect()->route('articles.show', $article->id);
         } else {
             return redirect()->back();
         }

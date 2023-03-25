@@ -17,7 +17,7 @@
 
                                 <th class="pl-3">ID</th>
                                 <th>Évènement </th>
-                                <th colspan="3">ACTION</th>
+                                <th colspan="2">ACTION</th>
                                 <th><a href="{{route('evenements.create')}}"><x-buttons.create>Creer</x-buttons.create><a></th>
                             </tr>
 

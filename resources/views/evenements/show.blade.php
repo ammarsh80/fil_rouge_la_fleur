@@ -10,7 +10,7 @@
                     <p>{{__('Liste de tous les articles liés à cet évènement')}}:</p>
                     <ul class="list-disc">
                     @foreach($article as $article)
-                        <li><a href="{{route('evenements.show', $evenement->id)}}">{{$article->fleur['nom_fleur']}} {{ $article->couleur ? $article->couleur['couleur'] : '' }}</a></li>
+                        <li><a href="{{route('articles.show', $article->id)}}">{{$article->fleur['nom_fleur']}} {{ $article->couleur ? $article->couleur['couleur'] : '' }}</a></li>
                         @endforeach
                     </ul>
                     <div>

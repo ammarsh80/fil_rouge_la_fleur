@@ -20,7 +20,6 @@
                             <li class="font-bold text-xl article-info">Détails: <span class="font-normal text-s article-reponse">{{$article->nombre}} {{$article->unite->nom_unite}} {{$article->unite->taille}}</span></li>
                             <li class="font-bold text-xl article-info">Prix: <span class="font-normal text-s article-reponse">{{$article->prix_unitaire}}</span></li>
                             <li class="font-bold text-xl article-info">Description (optionnelle): <span class="font-normal text-s article-reponse">{{$article->description}}</span></li>
-                            <!-- <li class="font-bold text-xl article-info">Catégorie: <span class="font-normal text-s article-reponse">{{ explode('"',$article->categorie)[5] }}</span></li> -->
                             <li class="font-bold text-xl article-info">Catégorie: <span class="font-normal text-s article-reponse">Liste des catégories auxquelles appartient cet article :</span></li>
                             <ul class="p-1 mb-5">
                                 @foreach($article->categorie as $categorie)
@@ -36,7 +35,6 @@
                                 @endforeach
                                 
                             </ul>
-                            <!-- <li class="font-bold text-xl article-info">Évènement: <span class="font-normal text-s article-reponse">{{ json_decode($article->evenement)[0]->nom_evenement }}</span></li> -->
 
                         </ul>
                     </div>
