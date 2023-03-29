@@ -48,6 +48,6 @@ Route::resource('commandeForns', CommandeFornController::class);
 
 Route::post('articles/{id}/attach', [ArticleController::class, 'attach'])->name('articles.attach');
 Route::get('articles/{id_article}/detach/{id_categorie}', [ArticleController::class, 'detach'])->name('articles.detach');
-Route::get('articles/{id_article}/detach/{id_evenement}', [ArticleController::class, 'detach'])->name('articles.detach');
+Route::get('articles/{id_article}/detachEven/{id_evenement}', [ArticleController::class, 'detachEven'])->name('articles.detachEven');
 
 require __DIR__.'/auth.php';

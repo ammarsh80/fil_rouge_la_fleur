@@ -20,7 +20,7 @@
                         </div>
                         <input type="text" name="nouvelle_taille">
                         @error('titre')
-                        <div class="text-red-500">{{$message}}</div>
+                        <div class="text-red-500" style="font-size: 0.6em;">{{$message}}</div>
                         @enderror
 
                         <div> 

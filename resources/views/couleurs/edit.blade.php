@@ -14,7 +14,7 @@
                         </div>
                         <input type="text" name="nouvelle_couleur" value="{{$couleur->couleur}}">
                         @error('titre')
-                        <div class="text-red-500">{{$message}}</div>
+                        <div class="text-red-500" style="font-size: 0.6em;">{{$message}}</div>
                         @enderror
                         <div>
                             <x-buttons.save :action="route('couleurs.update', $couleur->id)"></x-buttons.save>

@@ -14,7 +14,7 @@
                         </div>
                         <input type="text" name="nom_evenement" value="{{$evenement->nom_evenement}}">
                         @error('titre')
-                        <div class="text-red-500">{{$message}}</div>
+                        <div class="text-red-500" style="font-size: 0.6em;">{{$message}}</div>
                         @enderror
                         <div>
                             <x-buttons.save :action="route('evenements.update', $evenement->id)"></x-buttons.save>

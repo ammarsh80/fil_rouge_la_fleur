@@ -43,10 +43,10 @@
                             <td>
                                 <p class="ml-5 mr-5 text-green-600 text-center">{{$article->quantite_stock}}</p>
                             </td>
-                            </td>
                             <td> <x-buttons.show :action="route('articles.show', $article->id)"></x-buttons.show></td>
                             <td> <x-buttons.edit :action="route('articles.edit', $article->id)"></x-buttons.edit></td>
                             <td> <x-buttons.delete :action="route('articles.destroy',$article->id)"></x-buttons.delete></td>
+                            <td class="text-orange-600 flex justify-center items-center mt-3" style="font-size: 0.8em;">{{$article->alerteStock($article->id)}}</td>
                         </tr>
                         @endforeach
                     </table>

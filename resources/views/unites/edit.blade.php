@@ -14,7 +14,7 @@
                         </div>
                         <input type="text" name="nouvelle_unite" value="{{$unite->nom_unite}}">
                         @error('titre')
-                        <div class="text-red-500">{{$message}}</div>
+                        <div class="text-red-500" style="font-size: 0.6em;">{{$message}}</div>
                         @enderror
 
                         <div>
@@ -24,7 +24,7 @@
                         </div>
                         <input type="text" name="nouvelle_taille" value="{{$unite->taille}}">
                         @error('titre')
-                        <div class="text-red-500">{{$message}}</div>
+                        <div class="text-red-500" style="font-size: 0.6em;">{{$message}}</div>
                         @enderror
                         <div>
                             <x-buttons.save :action="route('unites.update', $unite->id)"></x-buttons.save>

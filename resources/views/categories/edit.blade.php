@@ -14,7 +14,7 @@
                         </div>
                         <input type="text" name="nom_categorie" value="{{$categorie->nom_categorie}}">
                         @error('titre')
-                        <div class="text-red-500">{{$message}}</div>
+                        <div class="text-red-500" style="font-size: 0.6em;">{{$message}}</div>
                         @enderror
                         <div>
                             <x-buttons.save :action="route('categories.update', $categorie->id)"></x-buttons.save>

@@ -80,4 +80,13 @@ class Article extends Model
     {
         return $this->belongsToMany(Categorie::class, 'lf_article_categorie');
     }
+
+    public function alerteStock($id)
+    {
+        $article = article::find($id);
+        $alerteStock = $article->quantite_stock;
+        if ($alerteStock < 10) {
+           echo 'ATTENTION ! article bientôt en repture de stock';
+        }
+    }
 }

@@ -30,7 +30,6 @@ class UniteController extends Controller
     {
         if ($request->validate([
             'nouvelle_unite' => "required|string|min:3|max:45|regex:/[a-zA-Z][a-zA-Z0-9À-ÿ]*('[a-zA-Z0-9À-ÿ]+)*/",
-            'nouvelle_taille' => "required|string|min:3|max:45|regex:/[a-zA-Z][a-zA-Z0-9À-ÿ]*('[a-zA-Z0-9À-ÿ]+)*/"
         ])) {
 
             $nouvelle_unite = $request->input('nouvelle_unite');
