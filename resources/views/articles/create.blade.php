@@ -95,29 +95,11 @@
                         <div>
                             <div class="flex flex-col max-w-lg">
                                 <label for="nombre" class="block text-sm font-bold text-gray-700">
-                                    {{__('Quantity (ex: 1, 2 ..etc) :')}}
+                                    {{__('Quantity (ex: 1, 10, 300 ..etc) :')}}
                                 </label>
                             </div>
                             <input type="text" name="nombre" style="width: 220px;">
                             @error('nombre')
-                            <div class="text-red-500" style="font-size: 0.6em;">{{$message}}</div>
-                            @enderror
-                        </div>
-
-
-                        <div>
-                            <div class="flex flex-col max-w-lg">
-                                <label for="couleur" class="block text-sm font-bold text-gray-700">
-                                    Couleur:
-                                </label>
-                            </div>
-                            <select name="couleur" id="couleur" style="width: 220px; font-size: 0.9em;">
-                                <option value="">Sélectionner une couleur</option>
-                                @foreach($couleurs as $couleur)
-                                <option value="{{$couleur->id}}">{{$couleur->couleur}}</option>
-                                @endforeach
-                            </select>
-                            @error('couleur')
                             <div class="text-red-500" style="font-size: 0.6em;">{{$message}}</div>
                             @enderror
                         </div>
@@ -139,52 +121,64 @@
                             @enderror
                         </div>
 
-                    </div>
-                    <div class="mt-5 flex flex-wrap justify-between items-center p-2" style="background-color: lightblue;">
-
                         <div>
                             <div class="flex flex-col max-w-lg">
-                                <label for="categorie" class="block text-sm font-bold text-gray-700">
-                                    Cétégorie :
+                                <label for="couleur" class="block text-sm font-bold text-gray-700">
+                                    Couleur (optionnel):
                                 </label>
                             </div>
-                            <div class="flex flex-col flex-wrap">
-<!-- 
-                                <div>
-                                    @foreach($categories as $categorie)
-
-                                    <input type="checkbox" id="categorie" name="categorie" class="ml-3">
-                                    <label for="categorie" value="toto" class="ml-1">{{$categorie->nom_categorie}}</label>
-                                    @endforeach
-                                </div> -->
-                               
-                            </div>
-
-
-                            <select name="categorie" id="categorie">
-                                <option value="">Sélectionner une catégorie </option>
-                                @foreach($categories as $categorie)
-                                <option value="{{$categorie->id}}">{{$categorie->nom_categorie}}</option>
+                            <select name="couleur" id="couleur" style="width: 220px; font-size: 0.9em;">
+                                <option value="">Sélectionner une couleur</option>
+                                @foreach($couleurs as $couleur)
+                                <option value="{{$couleur->id}}">{{$couleur->couleur}}</option>
                                 @endforeach
                             </select>
-
-                            @error('categorie')
+                            @error('couleur')
                             <div class="text-red-500" style="font-size: 0.6em;">{{$message}}</div>
                             @enderror
                         </div>
+
+
+                    </div>
+                    <div class="mt-5 flex flex-wrap justify-between items-center pt-2 pl-10 pr-10" style="background-color: rgb(145, 169, 231);">
+
+                        <div class="mb-3">
+                            <div class="flex flex-col max-w-lg">
+                                <label for="categorie" class="block text-m font-bold text-gray-700">
+                                    Ajouter une cétégorie :
+                                </label>
+                            </div>
+                            <div class="flex flex-col mr-10">
+
+                                @foreach ($categories as $categorie)
+                                <label>
+                                    <input type="checkbox" id="categories" name="categories[]" value="{{ $categorie->id }}">
+                                    {{ $categorie->nom_categorie }}
+                                </label>
+                                @endforeach
+
+                                @error('categories')
+                                <div class="text-red-500" style="font-size: 0.6em;">{{$message}}</div>
+                                @enderror
+
+                            </div>
+                        </div>
                         <div>
                             <div class="flex flex-col max-w-lg">
-                                <label for="evenement" class="block text-sm font-bold text-gray-700">
-                                    Évènement :
+                                <label for="evenement" class="block text-m font-bold text-gray-700">
+                                    Ajouter un évènement :
                                 </label>
                             </div>
 
-                            <select name="evenement" id="evenement">
-                                <option value="">Sélectionner un évènement </option>
-                                @foreach($evenements as $evenement)
-                                <option value="{{$evenement->id}}">{{$evenement->nom_evenement}}</option>
+                            <div class="flex flex-col mr-10">
+
+                                @foreach ($evenements as $evenement)
+                                <label>
+                                    <input type="checkbox" name="evenements[]" value="{{ $evenement->id }}">
+                                    {{ $evenement->nom_evenement }}
+                                </label>
                                 @endforeach
-                            </select>
+                            </div>
 
                             @error('evenement')
                             <div class="text-red-500" style="font-size: 0.6em;">{{$message}}</div>
@@ -194,12 +188,29 @@
                     <div>
                         <br>
                     </div>
-                    <div class="flex flex-wrap flex-col">
-                        <label for="description" class="py-3 font-bold">Description (optionnelle) :</label>
-                        <textarea name="description" id="description">{{$article->description}}</textarea>
-                        @error('description')
-                        <div class="text-red-500" style="font-size: 0.6em;">{{$message}}</div>
-                        @enderror
+                    <div class="flex flex-wrap justify-around">
+                        <div class="flex flex-wrap flex-col">
+
+                            <label for="description" class="font-bold">Description (optionnelle) :</label>
+                            <textarea name="description" id="description" class="h-32" style="width:65vw;">{{$article->description}}</textarea>
+                            @error('description')
+                            <div class="text-red-500" style="font-size: 0.6em;">{{$message}}</div>
+                            @enderror
+                        </div>
+
+                        <div class="flex flex-wrap flex-col py-1">
+                            <form action="{{route('articles.store')}}" method="POST">
+                                @csrf
+                                <div class="flex flex-col max-w-lg">
+                                    <label for="image" class="block text-sm font-bold text-gray-700">
+                                        {{__('Saisir le nom de fichier image (ex: fleur.jpg) ')}}
+                                    </label>
+                                </div>
+                                <input type="text" name="image" style="width: 290px;">
+                                @error('image')
+                                <div class="text-red-500" style="font-size: 0.6em;">{{$message}}</div>
+                                @enderror
+                        </div>
                     </div>
                     <div>
                         <x-buttons.save :action="route('articles.store')"></x-buttons.save>

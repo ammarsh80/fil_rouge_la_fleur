@@ -1,64 +1,61 @@
 <nav x-data="{ open: false }" class="bg-white dark:bg-gray-800 border-b border-gray-100 dark:border-gray-700">
     <!-- Primary Navigation Menu -->
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="max-w-7xl mx-auto px-4 sm:px-1 lg:px-8">
         <div class="flex justify-between h-16">
             <div class="flex flex-wrap">
                 <!-- Logo -->
-                <div class="shrink-0 flex items-center">
+                <div class="shrink-0 flex items-center pt-3">
                     <a href="{{ route('dashboard') }}">
+                        <!-- la ligne suivante est à virer en cas de problème d'affichage  -->
                         <x-application-logo class="block h-9 w-auto fill-current text-gray-800 dark:text-gray-200" />
+
                     </a>
                 </div>
 
                 <!-- Navigation Links -->
-                <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
+                <div class="hidden space-x-6 max-md:space-x-1 max-md:ml-0 sm:-my-px sm:ml-6 sm:flex">
                     <x-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
                         {{ __('Dashboard') }}
                     </x-nav-link>
-                </div>
-                <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
-                    <x-nav-link :href="route('articles.index')" :active="request()->routeIs('dashboard')">
+
+                    <x-nav-link :href="route('articles.index')" :active="request()->routeIs('articles')">
                         {{ __('Items') }}
                     </x-nav-link>
-                </div>
-                <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
-                    <x-nav-link :href="route('categories.index')" :active="request()->routeIs('dashboard')">
+
+                    <x-nav-link :href="route('categories.index')" :active="request()->routeIs('categories')">
                         {{ __('Categorie') }}
                     </x-nav-link>
-                </div>
-                <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
-                    <x-nav-link :href="route('evenements.index')" :active="request()->routeIs('dashboard')">
+
+                    <x-nav-link :href="route('evenements.index')" :active="request()->routeIs('evenements')">
                         {{ __('Events') }}
                     </x-nav-link>
-                </div>
-           
-                <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
-                    <x-nav-link :href="route('fleurs.index')" :active="request()->routeIs('dashboard')">
+
+                    <x-nav-link :href="route('fleurs.index')" :active="request()->routeIs('fleurs')">
                         {{ __('flower') }}
                     </x-nav-link>
-                </div>
-                <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
-                    <x-nav-link :href="route('couleurs.index')" :active="request()->routeIs('dashboard')">
+
+                    <x-nav-link :href="route('couleurs.index')" :active="request()->routeIs('couleurs')">
                         {{ __('Color') }}
                     </x-nav-link>
-                </div>
-                <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
-                    <x-nav-link :href="route('unites.index')" :active="request()->routeIs('dashboard')">
+
+                    <x-nav-link :href="route('unites.index')" :active="request()->routeIs('unites')">
                         {{ __('Detail') }}
                     </x-nav-link>
+
                 </div>
-           
+
+
 
 
             </div>
 
 
             <!-- Settings Dropdown -->
-            <div class="hidden sm:flex sm:items-center sm:ml-6">
-                <x-dropdown align="right" width="48">
+            <div class="hidden sm:flex sm:items-center sm:ml-0">
+                <x-dropdown align="right" width="45">
                     <x-slot name="trigger">
-                        <button class="inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md text-gray-500 dark:text-gray-400 bg-white dark:bg-gray-800 hover:text-gray-700 dark:hover:text-gray-300 focus:outline-none transition ease-in-out duration-150">
-                            <div>{{ Auth::user()->name }}</div>
+                        <button class="inline-flex items-center px-1 py-3 border border-transparent text-sm leading-4 font-medium rounded-md text-green-500 dark:text-green-400 bg-white dark:bg-gray-800 hover:text-gray-700 dark:hover:text-gray-300 focus:outline-none transition ease-in-out duration-150">
+                            <div class="text-xs">{{ Auth::user()->name }}</div>
 
                             <div class="ml-1">
                                 <svg class="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
@@ -69,7 +66,7 @@
                     </x-slot>
 
                     <x-slot name="content">
-                        <x-dropdown-link :href="route('profile.edit')">
+                        <x-dropdown-link :href="route('profile.edit')" class="bg-zinc-500 flex justify-center" style=" width: 150px; ">
                             {{ __('Profile') }}
                         </x-dropdown-link>
 
@@ -78,7 +75,7 @@
                             @csrf
 
                             <x-dropdown-link :href="route('logout')" onclick="event.preventDefault();
-                                                this.closest('form').submit();">
+                                                this.closest('form').submit();" class="flex justify-center" style=" width: 150px; ">
                                 {{ __('Log Out') }}
                             </x-dropdown-link>
                         </form>
@@ -104,6 +101,33 @@
             <x-responsive-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
                 {{ __('Dashboard') }}
             </x-responsive-nav-link>
+
+
+
+            <x-nav-link :href="route('articles.index')" :active="request()->routeIs('articles')" class="text-xs">
+                {{ __('Items') }}
+            </x-nav-link>
+
+            <x-nav-link :href="route('categories.index')" :active="request()->routeIs('categories')" class="text-xs">
+                {{ __('Categorie') }}
+            </x-nav-link>
+
+            <x-nav-link :href="route('evenements.index')" :active="request()->routeIs('evenements')" class="text-xs">
+                {{ __('Events') }}
+            </x-nav-link>
+
+            <x-nav-link :href="route('fleurs.index')" :active="request()->routeIs('fleurs')" class="text-xs">
+                {{ __('flower') }}
+            </x-nav-link>
+
+            <x-nav-link :href="route('couleurs.index')" :active="request()->routeIs('couleurs')" class="text-xs">
+                {{ __('Color') }}
+            </x-nav-link>
+
+            <x-nav-link :href="route('unites.index')" :active="request()->routeIs('unites')" class="text-xs">
+                {{ __('Detail') }}
+            </x-nav-link>
+
         </div>
 
         <!-- Responsive Settings Options -->

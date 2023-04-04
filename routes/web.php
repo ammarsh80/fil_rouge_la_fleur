@@ -47,7 +47,10 @@ Route::resource('commandeClients', CommandeClientController::class);
 Route::resource('commandeForns', CommandeFornController::class);
 
 Route::post('articles/{id}/attach', [ArticleController::class, 'attach'])->name('articles.attach');
-Route::get('articles/{id_article}/detach/{id_categorie}', [ArticleController::class, 'detach'])->name('articles.detach');
+Route::get('articles/{id_article}/attachCategorie/{id_categorie}', [ArticleController::class, 'attachCategorie'])->name('articles.attachCategorie');
+Route::get('articles/{id_article}/detachCat/{id_categorie}', [ArticleController::class, 'detachCat'])->name('articles.detachCat');
+
+Route::get('articles/{id_article}/attachEvenement/{id_evenement}', [ArticleController::class, 'attachEvenement'])->name('articles.attachEvenement');
 Route::get('articles/{id_article}/detachEven/{id_evenement}', [ArticleController::class, 'detachEven'])->name('articles.detachEven');
 
 require __DIR__.'/auth.php';

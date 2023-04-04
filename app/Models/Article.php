@@ -2,15 +2,19 @@
 
 namespace App\Models;
 
+use App\Mail\AlerteStock;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Mail;
+
 
 class Article extends Model
 {
+   
     use HasFactory;
     protected $table = "lf_articles";
     protected $primaryKey = "id";
-    protected $fillable = array('descritpion','etat', 'quantite_stock', 'date_inventaire','prix_unitaire', 'nombre');
+    protected $fillable = array('descritpion', 'etat', 'quantite_stock', 'date_inventaire', 'prix_unitaire', 'nombre');
     public $timestamps = false;
 
     /**
@@ -65,7 +69,7 @@ class Article extends Model
     /**
      * un articles a plusieurs evenement
      *
-     * @return void
+     * @return 
      */
     public function evenement()
     {
@@ -74,19 +78,67 @@ class Article extends Model
     /**
      * Un article appartient à plusieurs catégories
      *
-     * @return void
+     * @return
      */
     public function categorie()
     {
         return $this->belongsToMany(Categorie::class, 'lf_article_categorie');
     }
 
-    public function alerteStock($id)
-    {
-        $article = article::find($id);
-        $alerteStock = $article->quantite_stock;
-        if ($alerteStock < 10) {
-           echo 'ATTENTION ! article bientôt en repture de stock';
-        }
+    // /**
+    //  * envoie une alerte quand la quantité de stock est inférieur à 10 articles
+    //  */
+    // public function alerteStock($id)
+    // {
+    //     $article = article::find($id);
+    //     $alerteStock = $article->quantite_stock;
+    //     if ($alerteStock < 10) {
+    //        echo "ATTENTION ! l'article numéro ("."$id". ") sera bientôt en repture de stock";
+    //     }
+    // }
+
+
+
+
+    // /**
+    //  * envoie une alerte quand la quantité de stock est inférieur à 10 articles
+    //  */
+    // public function alerteStock($id)
+    // {
+    //     $article = Article::find($id);
+    //     $alerteStock = $article->quantite_stock;
+    
+    //     if ($alerteStock < 10) {
+    //         $details = [
+    //             'title' => 'Alerte stock',
+    //             'body' => "ATTENTION ! l'article numéro ($id) sera bientôt en rupture de stock"
+    //         ];
+    
+    //         // Mail::to('ammarsh80@gmail.com')->send(new AlerteStock($details));
+    
+    //         return "ATTENTION ! l'article numéro ($id) sera bientôt en rupture de stock";
+    //     }
+    // }
+
+
+    /**
+ * envoie une alerte quand la quantité de stock est inférieur à 10 articles
+ */
+public function alerteStock($id)
+{
+    $article = Article::find($id);
+    $alerteStock = $article->quantite_stock;
+
+    if ($alerteStock < 10) {
+        $details = [
+            'title' => 'Alerte stock',
+            'body' => "ATTENTION ! l'article numéro ($id) sera bientôt en rupture de stock"
+        ];
+
+        // Mail::to('ammarsh80@gmail.com')->send(new AlerteStock($article));
+
+        return "ATTENTION ! l'article numéro ($id) sera bientôt en rupture de stock";
     }
+}
+
 }

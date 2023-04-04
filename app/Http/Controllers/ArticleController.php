@@ -11,6 +11,9 @@ use App\Models\Fleur;
 use App\Models\Unite;
 use Illuminate\Http\Request;
 
+/**
+ * Article Controller
+ */
 class ArticleController extends Controller
 {
     /**
@@ -44,76 +47,14 @@ class ArticleController extends Controller
         ]);
     }
 
-    // public function attachCategorie($categorie_id, $article_id)
-    // {
-    //     $article = Article::find($article_id);
-    //     $article->categorie()->attach($categorie_id);     // la méthode attach sert à lier le tag trouvé (ou créé) au jeu enregistré en utilisant la relation tags définie dans la classe Jeu.
 
-    // }
-
-    public function attachCategorie($categorie_id, $article_id)
-    {
-        $categorie_id = Categorie::firstOrCreate([        //firstOfCreate() crée une nouveau tag sauf s'il existe déjà
-            'id' => $categorie_id
-        ]);
-        $article = Article::find($article_id);
-        $categories = $article->categorie;
-        $bool = $categories->contains($categorie_id);  // Vérifie si le tag existe déjà
-        if (!$bool) {
-            $article->categorie()->attach($categorie_id);     // la méthode attach sert à lier le tag trouvé (ou créé) au jeu enregistré en utilisant la relation tags définie dans la classe Jeu.
-        }
-        return redirect()->route('articles.show', $article->id);
-        die;
-    }
-
-    public function attachEvenement($evenement_id, $article_id)
-    {
-        $evenement_id = Evenement::firstOrCreate([        //firstOfCreate() crée une nouveau tag sauf s'il existe déjà
-            'id' => $evenement_id
-        ]);
-        $article = Article::find($article_id);
-        $evenement = $article->evenement;
-        $bool = $evenement->contains($evenement_id);  // Vérifie si le tag existe déjà
-        if (!$bool) {
-            $article->evenement()->attach($evenement_id);     // la méthode attach sert à lier le tag trouvé (ou créé) au jeu enregistré en utilisant la relation tags définie dans la classe Jeu.
-        }
-        return redirect()->route('articles.show', $article->id);
-        die;
-    }
-
-
-    // public function attachEvenement($evenement_id, $article_id)
-    // {
-    //     $article = Article::find($article_id);
-    //     $article->evenement()->attach($evenement_id);     // la méthode attach sert à lier le tag trouvé (ou créé) au jeu enregistré en utilisant la relation tags définie dans la classe Jeu.
-    // }
 
     /**
      * Store a newly created resource in storage.
      */
     public function store(Request $request)
     {
-        // if ($request->validate([
-        //     'nom_fleur' => "required|string|min:3|max:45|regex:/[a-zA-Z][a-zA-Z0-9À-ÿ]*('[a-zA-Z0-9À-ÿ]+)*/",
-        //     'description' => "string|min:3|max:255",
-        //     'couleur' => "string"
 
-        // ])) {
-
-        //     $nom_fleur = $request->input('nom_fleur');
-        //     $description = $request->input('description');
-
-        //     $article = new Article();
-        //     // $jeu->categorie_id = $request->input('categorie_id');
-
-        //     $article->nom_fleur = $nom_fleur;
-        //     $article->description = $description;
-
-        //     $article->save();
-        //     return redirect()->route('articles.show', ['articles' => $article->id]);
-        // } else {
-        //     return redirect()->back();
-        // }
 
         if ($request->validate([
             'nom_fleur' => "string",
@@ -124,9 +65,10 @@ class ArticleController extends Controller
             'nombre' => "int",
             'nom_unite' => "string",
             // 'couleur' => "string",
-            'categorie' => "string",
-            'evenement' => "string",
+            'categories' => "required",
+            // 'evenement' => "string",
             'description' => "string|min:3|max:255|regex:/[a-zA-Z][a-zA-Z0-9À-ÿ]*('[a-zA-Z0-9À-ÿ]+)*/",
+            'image' => "string|min:5|max:255",
 
         ])) {
 
@@ -137,17 +79,13 @@ class ArticleController extends Controller
             $quantite_stock = $request->input('quantite_stock');
             $prix_unitaire = $request->input('prix_unitaire');
             $nombre = $request->input('nombre');
-
-            $categorie_id = $request->input('categorie');
-
-
-            $evenement_id = $request->input('evenement');
-
+            $categorie_id = $request->input('categories');
+            $evenement_id = $request->input('evenements');
 
             $couleur = $request->input('couleur');
             $nom_unite = $request->input('nom_unite');
-
             $description = $request->input('description');
+            $image = $request->input('image');
             $article = new Article();
 
             $article->couleurs_id = $couleur;
@@ -160,15 +98,12 @@ class ArticleController extends Controller
             $article->description = $description;
             $article->prix_unitaire = $prix_unitaire;
             $article->nombre = $nombre;
-            // $article->couleur()->associate($couleur);
+            $article->image = $image;
             $article->save();
-
             $article_id = $article->id;
 
-            // $this->attachCategorie($categorie_id, $article_id);
-            $this->attachCategorie($categorie_id, $article_id);
-            $this->attachEvenement($evenement_id, $article_id);
-
+            $article->categorie()->attach($categorie_id);
+            $article->evenement()->attach($evenement_id);
 
             return redirect()->route('articles.show', $article->id);
         } else {
@@ -182,7 +117,6 @@ class ArticleController extends Controller
     public function show(string $id)
     {
         $article = Article::find($id);
-        // $categorie= $article->categorie;
         return view('articles.show', ['toto' => $id, 'article' => $article]);
         // return view('articles.show', compact('article','categorie'));
     }
@@ -202,9 +136,6 @@ class ArticleController extends Controller
         $unites = Unite::orderBy('id', 'asc')->get();
         $categories = Categorie::orderBy('id', 'asc')->get();
         $evenements = Evenement::orderBy('id', 'asc')->get();
-
-        // return view('jeux.edit', ['toto' => $id, 'jeu' => $jeux]);
-        // return view('articles.edit', compact('article', 'couleur', 'couleurs'));
 
         return view('articles.edit', [
             'article' => $article, 'articles' => $articles, 'couleurs' => $couleurs,
@@ -228,10 +159,11 @@ class ArticleController extends Controller
             'nombre' => "int",
             'nom_unite' => "string",
             'taille' => "string",
-            'categorie' => "string",
-            'evenement' => "string",
+            // 'categorie' => "string",
+            // 'evenement' => "string",
             // 'couleur' => "string",
             'description' => "string|min:3|max:255|regex:/[a-zA-Z][a-zA-Z0-9À-ÿ]*('[a-zA-Z0-9À-ÿ]+)*/",
+            'image' => "string|min:5|max:255|",
 
         ])) {
 
@@ -245,10 +177,10 @@ class ArticleController extends Controller
             $nombre = $request->input('nombre');
             $couleur = $request->input('couleur');
             $nom_unite = $request->input('nom_unite');
+            $image = $request->input('image');
+
             $article = Article::find($id);
-            // $fleur = Fleur::find($id);
-            // $unites = Unite::find($id);
-            // $couleurs = Couleur::find($id);
+
             $description = $request->input('description');
             $article->fleurs_id = $nom_fleur;
             $article->unites_id = $nom_unite;
@@ -259,13 +191,19 @@ class ArticleController extends Controller
             $article->description = $description;
             $article->prix_unitaire = $prix_unitaire;
             $article->nombre = $nombre;
-            // $couleurs->couleur = $couleur;
+            $article->image = $image;
+            
             $article->couleur()->associate($couleur);
 
             $article_id = $article->id;
-            // $this->attachCategorie($categorie_id, $article_id);
-            $this->attachCategorie($categorie_id, $article_id);
-            $this->attachEvenement($evenement_id, $article_id);
+            if ($evenement_id != null) {
+
+                $this->attachEvenement($article_id, $evenement_id);
+            }
+            if ($categorie_id != null) {
+
+                $this->attachCategorie($article_id, $categorie_id);
+            }
 
             $article->save();
             // $couleurs->save();
@@ -276,31 +214,6 @@ class ArticleController extends Controller
     }
 
 
-    //     public function update(Request $request, string $id)
-    // {
-    //     $validatedData = $request->validate([
-    //         'nom_fleur' => 'required|string|min:3|max:45|regex:/^[a-zA-Z][a-zA-Z0-9À-ÿ]*(\'[a-zA-Z0-9À-ÿ]+)*/',
-    //         'description' => 'nullable|string|min:3|max:255',
-    //         'couleur' => 'nullable|exists:couleurs,id',
-    //         'prix' => 'nullable|numeric',
-    //         'nombre' => 'nullable|integer',
-    //         'date_inventaire' => 'nullable|date'
-    //     ]);
-
-    //     $article = Article::findOrFail($id);
-
-    //     $article->nom_fleur = $validatedData['nom_fleur'];
-    //     $article->description = $validatedData['description'];
-    //     $article->prix_unitaire = $validatedData['prix'];
-    //     $article->nombre = $validatedData['nombre'];
-    //     $article->couleur_id = $validatedData['couleur'];
-    //     $article->date_inventaire = $validatedData['date_inventaire'];
-
-    //     $article->save();
-
-    //     return redirect()->route('articles.show', $article->id);
-    // }
-
     /**
      * Remove the specified resource from storage.
      */
@@ -310,40 +223,6 @@ class ArticleController extends Controller
         return redirect()->route('articles.index');
     }
 
-
-
-    // /**
-    //  * créer ou récupère un tag et l'attach à un jeu
-    //  *
-    //  * @param Request $request
-    //  * @param [type] $id_jeu
-    //  * @return void
-    //  */
-    // public function attach(Request $request, $id_article)
-    // {
-    //     if ($request->validate([
-    //         'categorie' => 'required|string|max:45|min:3'
-    //     ])) {
-    //         $categorie = $request->input('categorie');
-    //         var_dump($$categorie);
-    //         die;
-    //         $categorie = Categorie::firstOrCreate([        //firstOfCreate() crée une nouveau tag sauf s'il existe déjà
-    //             'categorie' => $categorie
-    //         ]);
-
-    //         $article = Article::find($id_article);
-    //         $categories = $article->categories;
-    //         $bool = $categories->contains($categorie->id);  // Vérifie si le tag existe déjà
-
-    //         if (!$bool) {
-    //             $article->categories()->attach($categorie->id);     // la méthode attach sert à lier le tag trouvé (ou créé) au jeu enregistré en utilisant la relation tags définie dans la classe Jeu.
-    //         }
-    //         return redirect()->route('articles.show', $article->id);
-    //     } else {
-    //         return redirect()->back();
-    //     }
-    //     die;
-    // }
     /**
      * détache un tag d'un jeu
      *
@@ -351,7 +230,7 @@ class ArticleController extends Controller
      * @param [type] $id_tag
      * @return void
      */
-    public function detach($id_article, $id_categorie)
+    public function detachCat($id_article, $id_categorie)
     {
         $article = Article::find($id_article);
         $article->categorie()->detach($id_categorie);
@@ -372,4 +251,51 @@ class ArticleController extends Controller
     }
 
 
+/**
+ * attahce une cétegorie (trouvée ou crée) à une article
+ *
+ * @param [int] $article_id
+ * @param [int] $categorie_id
+ * @return void
+ */
+    public function attachCategorie($article_id, $categorie_id)
+    {
+        $categorie_id = Categorie::firstOrCreate([        //firstOfCreate() crée une nouveau categorie sauf s'il existe déjà
+            'id' => $categorie_id
+        ]);
+
+        $article = Article::find($article_id);
+
+        $categories = $article->categorie;
+        $bool = $categories->contains($categorie_id);  // Vérifie si la categorie existe déjà
+        if (!$bool) {
+            $article->categorie()->attach($categorie_id);     // la méthode attach sert à lier la categorie trouvé (ou créé) à l'article enregistré en utilisant la relation Categorie définie dans la classe Article.
+        }
+        return redirect()->route('articles.edit', $article->id);
+        die;
+    }
+
+    /**
+     * attahce un évenement (trouvée ou crée) à une article
+     *
+     * @param [int] $article_id
+     * @param [int] $evenement_id
+     * @return void
+     */
+    public function attachEvenement($article_id, $evenement_id)
+    {
+        $evenement_id = Evenement::firstOrCreate([        
+            'id' => $evenement_id
+        ]);
+      
+
+        $article = Article::find($article_id);
+        $evenement = $article->evenement;
+        $bool = $evenement->contains($evenement_id);  
+        if (!$bool) {
+            $article->evenement()->attach($evenement_id);     
+        }
+        return redirect()->route('articles.edit', $article->id);
+        die;
+    }
 }

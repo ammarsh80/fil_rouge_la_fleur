@@ -16,7 +16,7 @@
                     <div>
                         <x-buttons.edit :action="route('evenements.edit', $evenement->id)"></x-buttons.edit>
                         <x-buttons.delete :action="route('evenements.destroy',$evenement->id)"></x-buttons.delete>
-                        <x-buttons.cancel :action="route('evenements.index',$evenement->id)"></x-buttons.cancel>
+                        <x-buttons.back :action="route('evenements.index',$evenement->id)"></x-buttons.back>
 
                     </div>
                 </div>

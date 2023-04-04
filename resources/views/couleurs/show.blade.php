@@ -13,7 +13,7 @@
                     <div>
                         <x-buttons.edit :action="route('couleurs.edit', $couleur->id)"></x-buttons.edit>
                         <x-buttons.delete :action="route('couleurs.destroy',$couleur->id)"></x-buttons.delete>
-                        <x-buttons.cancel :action="route('couleurs.index',$couleur->id)"></x-buttons.cancel>
+                        <x-buttons.back :action="route('couleurs.index',$couleur->id)"></x-buttons.back>
 
                     </div>
                 </div>
