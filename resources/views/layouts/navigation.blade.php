@@ -2,13 +2,11 @@
     <!-- Primary Navigation Menu -->
     <div class="max-w-7xl mx-auto px-4 sm:px-1 lg:px-8">
         <div class="flex justify-between h-16">
-            <div class="flex flex-wrap">
+            <div class="flex flex-wrap justify-center">
                 <!-- Logo -->
                 <div class="shrink-0 flex items-center pt-3">
                     <a href="{{ route('dashboard') }}">
-                        <!-- la ligne suivante est à virer en cas de problème d'affichage  -->
-                        <x-application-logo class="block h-9 w-auto fill-current text-gray-800 dark:text-gray-200" />
-
+                        <img src="{{ asset('imgages/logo.png') }}" alt="Logo" class="h-12 w-auto">
                     </a>
                 </div>
 
@@ -156,15 +154,21 @@
     </div>
 </nav>
 
-<div class="flex justify-center items-center bg-gray-300 pt-1 pb-1">
-    <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex p-1 rounded btn_commande_fournisseurs ">
-        <x-nav-link :href="route('commandeForns.index')" :active="request()->routeIs('dashboard')">
+<div class="flex justify-center flex-wrap items-center bg-gray-300 pt-1 pb-1">
+    <!-- <div class="space-x-8 sm:-my-px sm:ml-10 sm:flex p-1 rounded btn_commande_fournisseurs ">
+        <x-nav-link :href="route('commandeForns.index')" :active="request()->routeIs('Order from suppliers')">
             {{ __('Order from suppliers') }}
         </x-nav-link>
-    </div>
-    <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex p-1 rounded btn_commande_client">
-        <x-nav-link :href="route('commandeClients.index')" :active="request()->routeIs('dashboard')">
+    </div> -->
+  
+    <div class="space-x-8 sm:-my-px sm:ml-10 sm:flex p-1 rounded btn_commande_client font-bold">
+        <x-nav-link :href="route('commandeClients.index')" :active="request()->routeIs('Customer order')">
             {{ __('Customer order') }}
+        </x-nav-link>
+    </div>
+    <div class="space-x-8 sm:-my-px sm:ml-10 sm:flex p-1 rounded">
+        <x-nav-link :href="route('gainLoteries.index')" :active="request()->routeIs('Lottery')">
+            <div class="loterie">{{ __('Lottery') }}</div>
         </x-nav-link>
     </div>
 

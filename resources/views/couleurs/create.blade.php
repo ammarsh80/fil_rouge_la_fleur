@@ -9,7 +9,7 @@
                             {{__('add a new color')}}
                         </label>
                         <input type="text" name="nouvelle_couleur" required>
-                        @error('titre')
+                        @error('nouvelle_couleur')
                         <div class="text-red-500">{{ $message }}</div>
                         @enderror
                

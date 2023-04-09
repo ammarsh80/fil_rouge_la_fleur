@@ -12,8 +12,13 @@ class CommandeClientController extends Controller
      */
     public function index()
     {
-        echo 'ici Commande Client';
-    }
+    // $article = Article::orderBy('id', 'asc')->get();
+    $commandeClient = CommandeClient::with(['client', 'article'])->get();
+    // $article = $commandeClient->article_id;
+    // $fleur= $article->fleurs;
+    // return view('articles.index', ['articles' => $article]);  
+    return view('commandeClients.index', ['commandeClients' => $commandeClient]);  
+  }
 
     /**
      * Show the form for creating a new resource.
@@ -30,13 +35,22 @@ class CommandeClientController extends Controller
     {
         //
     }
+    
 
     /**
      * Display the specified resource.
      */
     public function show(string $id)
     {
-        //
+        $commandeClient = CommandeClient::find($id);
+        $adresseLivraison = $commandeClient->adresseLivraison;
+        $adresseFacturation = $commandeClient->adresseFacturation;
+    
+        return view('commandeClients.show', [
+            'commandeClient' => $commandeClient,
+            'adresseLivraison' => $adresseLivraison,
+            'adresseFacturation' => $adresseFacturation
+        ]);
     }
 
     /**
@@ -44,16 +58,37 @@ class CommandeClientController extends Controller
      */
     public function edit(string $id)
     {
-        //
-    }
+        $commandeClient = CommandeClient::find($id);
+        $adresse_Livraison = $commandeClient->adresseLivraison;
+        // $articles = $commandeClients->articles;
+        
+//    $commandeClient = CommandeClient::with(['client', 'article'])->get();
+   return view('commandeClients.edit', ['commandeClient' => $commandeClient], ['adresse_Livraison' => $adresse_Livraison]);     
 
+    }
+    
     /**
      * Update the specified resource in storage.
      */
     public function update(Request $request, string $id)
     {
-        //
-    }
+        if ($request->validate([
+            'etat_commande' => "string",
+            'livree_temps' => "string"
+        ])) {
+            $commandeClient = CommandeClient::find($id);
+            
+            $etat_commande = $request->input('etat_commande');
+            $commandeClient->etat = $etat_commande;
+            
+            $livree_temps = $request->input('livree_temps');
+            $commandeClient->livre_a_temps = $livree_temps;
+
+            $commandeClient->save();
+            return redirect()->route('commandeClients.show', $commandeClient->id);
+        } else {
+            return redirect()->back();
+        }      }
 
     /**
      * Remove the specified resource from storage.

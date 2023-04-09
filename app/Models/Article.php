@@ -14,7 +14,7 @@ class Article extends Model
     use HasFactory;
     protected $table = "lf_articles";
     protected $primaryKey = "id";
-    protected $fillable = array('descritpion', 'etat', 'quantite_stock', 'date_inventaire', 'prix_unitaire', 'nombre');
+    protected $fillable = array('descritpion', 'etat', 'quantite_stock', 'date_inventaire', 'prix_unitaire', 'nombre', 'image');
     public $timestamps = false;
 
     /**
@@ -84,6 +84,17 @@ class Article extends Model
     {
         return $this->belongsToMany(Categorie::class, 'lf_article_categorie');
     }
+
+        /**
+     * une unité a plusieurs articles
+     *
+     * @return void
+     */
+    public function lignCommandeClient()
+    {
+        return $this->hasMany(LigneCommandeClient::class);
+    }
+
 
     // /**
     //  * envoie une alerte quand la quantité de stock est inférieur à 10 articles

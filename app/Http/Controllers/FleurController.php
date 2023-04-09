@@ -22,7 +22,8 @@ class FleurController extends Controller
     public function create()
     {
         $fleur = new Fleur();
-        return view('fleurs.create', ['fleur' => $fleur, 'titre' => $fleur]);    }
+        return view('fleurs.create', ['fleur' => $fleur, 'titre' => $fleur]);  
+      }
 
     /**
      * Store a newly created resource in storage.
@@ -82,7 +83,8 @@ class FleurController extends Controller
             return redirect()->route('fleurs.show', $fleur->id);
         } else {
             return redirect()->back();
-        }     }
+        }    
+     }
 
     /**
      * Remove the specified resource from storage.

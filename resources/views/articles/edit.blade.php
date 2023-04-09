@@ -228,7 +228,7 @@
                         <div class="flex flex-wrap flex-col">
 
                             <label for="description" class="font-bold">Description (optionnelle) :</label>
-                            <textarea name="description" id="description" class="h-32" style="width:65vw;">{{$article->description}}</textarea>
+                            <textarea name="description" id="description" class="h-32" style="width:40vw;">{{$article->description}}</textarea>
                             @error('description')
                             <div class="text-red-500" style="font-size: 0.6em;">{{$message}}</div>
                             @enderror

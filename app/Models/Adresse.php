@@ -50,8 +50,9 @@ class Adresse extends Model
      */
     public function commandeClient()
     {
-        return $this->hasMany(CommandeClient::class);
+        return $this->hasMany(Adresse::class);
     }
+
 
 
     /**

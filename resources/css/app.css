@@ -3,59 +3,89 @@
 @tailwind utilities;
 
 
-.article-info{
+.article-info {
     font-size: 1.1em;
     margin-top: 2px;
 }
-.article-reponse{
+
+.article-reponse {
     font-size: 1em;
 }
 
 
 .btn_commande_fournisseurs,
-.btn_commande_client{
+.btn_commande_client {
     width: 200px;
     background-color: rgb(6, 46, 147) !important;
     border: 5px ridge rgb(241, 200, 175);
     margin: 2px;
     display: flex;
     justify-content: center;
+
 }
 
 .btn_commande_fournisseurs :hover,
-.btn_commande_client :hover{
+.btn_commande_client :hover {
     /* color: rgb(205, 228, 200) !important; */
     color: rgb(55, 233, 15) !important;
     transform: translateY(1px);
 }
 
+.loterie:hover {
+    /* color: rgb(205, 228, 200) !important; */
+    color: rgb(46, 21, 19) !important;
+    transform: translateY(1px);
+}
 
-.test{
+.loterie {
+    width: 200px;
+    height: 40px;
+    background-color: rgb(4, 172, 10) !important;
+    border: 5px ridge rgb(112, 100, 92);
+    display: flex;
+    justify-content: center;
+    color: wheat;
+    font-size: 1.4em;
+    padding-top: 5px;
+}
+
+.test {
     background-color: rgb(145, 169, 231) !important;
 
 }
 
 .ajout_categorie:hover {
     background-color: #86efac;
-    transform: scale(1.1,1.1);
+    transform: scale(1.1, 1.1);
     transform: translateX(5px);
 
 }
+
 .supprime_categorie:hover {
     background-color: #fee2e2;
-    transform: scale(0.95,0.95);
+    transform: scale(0.95, 0.95);
     transform: translateX(-15px);
 
 
 }
 
 @media screen and (max-width: 770px) {
-    #container_index div, input{
-        font-size: 0.86em !important;
+
+    
+    #container_index div,
+    input {
+        font-size: 0.90em !important;
+    }
+    #container_index_commande div,
+    input {
+        font-size: 0.95em !important;
     }
     #btn_show,
-    #btn_create{
+    #btn_create {
         font-size: 0.8em;
     }
-   
+#container_commande{
+    width: 90vw !important;
+    margin: 10px;
+}
 }

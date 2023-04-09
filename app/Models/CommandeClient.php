@@ -69,4 +69,5 @@ class CommandeClient extends Model
     {
         return $this->belongsToMany(Article::class, 'lf_ligne_commande_client');
     }
+
 }

@@ -10,7 +10,7 @@ class Client extends Model
     use HasFactory;
     protected $table = "lf_clients";
     protected $primaryKey = "id";
-    protected $fillable = array('titre', 'nom_client', 'prenom', 'email', 'mot_de_passe', 'etat');
+    protected $fillable = array('titre', 'nom_client', 'prenom', 'email', 'mot_de_passe', 'etat', 'pseudo');
     public $timestamps = false;
 
     /**
