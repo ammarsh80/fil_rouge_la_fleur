@@ -22,20 +22,21 @@
                                 <div>
                                     <span class="underline mr-3">État de commande: </span>
                                     <span class="font-bold mr-2 p-2 bg-green-300 rounded mb-1">{{$commandeClient->etat}}</span>
+
                                 </div>
                             </div>
 
                             <div class="flex max-w-lg mb-3">
                                 <span class="font-bold" style="width: 250px;">Nom et prénom : </span>
-                                <span>{{$commandeClient->client->prenom}} {{$commandeClient->client->nom_client}}
-                                </span>
+                                <span>{{$commandeClient->client->prenom}} {{$commandeClient->client->nom_client}}</span>
+
                             </div>
 
-                            <div class="flex max-w-lg mb-3">
+                            <!-- <div class="flex max-w-lg mb-3">
                                 <span class="font-bold" style="width: 250px;">État de client : </span>
-                                <span>{{$commandeClient->client->etat}}
-                                </span>
-                            </div>
+                                <span>{{$commandeClient->client->etat}}</span>
+
+                            </div> -->
 
                             <div class="flex max-w-lg mb-3">
                                 <span class="font-bold" style="width: 250px;">Numéro de portable : </span>
@@ -94,7 +95,7 @@
 
                             <div class="mb-3 flex max-w-2xl">
                                 <span class="font-bold" style="width: 250px;">Lot gagné : </span>
-                                <span> {{ $commandeClient->gainLoterie->lot }}</span>
+                                <span> {{ $commandeClient->gainLoterie ? $commandeClient->gainLoterie->lot : ''}}</span>
                             </div>
 
 

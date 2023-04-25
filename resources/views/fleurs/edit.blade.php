@@ -13,7 +13,7 @@
                             </label>
                         </div>
                         <input type="text" name="nouvelle_fleur" value="{{$fleur->nom_fleur}}">
-                        @error('titre')
+                        @error('nouvelle_fleur')
                         <div class="text-red-500" style="font-size: 0.6em;">{{$message}}</div>
                         @enderror
                         <div>

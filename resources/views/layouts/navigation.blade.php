@@ -11,7 +11,7 @@
                 </div>
 
                 <!-- Navigation Links -->
-                <div class="hidden space-x-6 max-md:space-x-1 max-md:ml-0 sm:-my-px sm:ml-6 sm:flex">
+                <div class="hidden space-x-2 max-md:space-x-1 max-md:ml-0 sm:ml-0 sm:flex">
                     <x-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
                         {{ __('Dashboard') }}
                     </x-nav-link>
@@ -38,6 +38,9 @@
 
                     <x-nav-link :href="route('unites.index')" :active="request()->routeIs('unites')">
                         {{ __('Detail') }}
+                    </x-nav-link>
+                    <x-nav-link :href="route('fraislivraisons.index')" :active="request()->routeIs('fraisLivraisons')">
+                        {{ __('Livraison') }}
                     </x-nav-link>
 
                 </div>
@@ -125,6 +128,9 @@
             <x-nav-link :href="route('unites.index')" :active="request()->routeIs('unites')" class="text-xs">
                 {{ __('Detail') }}
             </x-nav-link>
+            <x-nav-link :href="route('fraislivraisons.index')" :active="request()->routeIs('fraisLivraisons')" class="text-xs">
+                {{ __('Frais Livraison') }}
+            </x-nav-link>
 
         </div>
 
@@ -154,13 +160,13 @@
     </div>
 </nav>
 
-<div class="flex justify-center flex-wrap items-center bg-gray-300 pt-1 pb-1">
+<div class="flex justify-center flex-wrap items-center bg-gray-300 pt-3 pb-1">
     <!-- <div class="space-x-8 sm:-my-px sm:ml-10 sm:flex p-1 rounded btn_commande_fournisseurs ">
         <x-nav-link :href="route('commandeForns.index')" :active="request()->routeIs('Order from suppliers')">
             {{ __('Order from suppliers') }}
         </x-nav-link>
     </div> -->
-  
+
     <div class="space-x-8 sm:-my-px sm:ml-10 sm:flex p-1 rounded btn_commande_client font-bold">
         <x-nav-link :href="route('commandeClients.index')" :active="request()->routeIs('Customer order')">
             {{ __('Customer order') }}

@@ -51,11 +51,10 @@ class FleurController extends Controller
     public function show(string $id)
     {
         $fleur = Fleur::find($id);
-        
         $articles = $fleur->articles;
-       
-            //    return view('couleurs.show', ['toto' => $id, 'couleur' => $couleur]);   
-        return view('fleurs.show', compact('fleur', 'articles'));     }
+        return view('fleurs.show', compact('fleur', 'articles')); 
+    
+    }
 
     /**
      * Show the form for editing the specified resource.
@@ -63,7 +62,6 @@ class FleurController extends Controller
     public function edit(string $id)
     {
         $fleur = Fleur::find($id);
-        // return view('fleurs.edit', ['toto' => $id, 'couleur' => $fleurs]);    
         return view('fleurs.edit', compact('fleur'));  
        }
 
@@ -75,7 +73,6 @@ class FleurController extends Controller
         if ($request->validate([
             'nouvelle_fleur' => "required|string|min:3|max:45|regex:/[a-zA-Z][a-zA-Z0-9À-ÿ]*('[a-zA-Z0-9À-ÿ]+)*/"
         ])) {
-          
             $nouvelle_fleur = $request->input('nouvelle_fleur');
             $fleur = Fleur::find($id);
             $fleur->nom_fleur = $nouvelle_fleur;

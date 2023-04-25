@@ -50,10 +50,7 @@ class UniteController extends Controller
     public function show(string $id)
     {
         $unite = Unite::find($id);
-        
         $articles = $unite->articles;
-       
-            //    return view('couleurs.show', ['toto' => $id, 'couleur' => $couleur]);   
         return view('unites.show', compact('unite', 'articles'));    }
 
     /**

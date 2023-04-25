@@ -31,8 +31,7 @@ class CouleurController extends Controller
     public function store(Request $request)
     {
         if ($request->validate([
-            // 'nouvelle_couleur' => "required|string|min:3|max:45|regex:/[a-zA-Z][a-zA-Z0-9À-ÿ]*('[a-zA-Z0-9À-ÿ]+)*/",
-            // 'nouvelle_couleur' => "min:0",
+            'nouvelle_couleur' => "required|string|min:3|max:45|regex:/[a-zA-Z][a-zA-Z0-9À-ÿ]*('[a-zA-Z0-9À-ÿ]+)*/",
         ])) {
 
             $nouvelle_couleur = $request->input('nouvelle_couleur');
@@ -52,10 +51,7 @@ class CouleurController extends Controller
     public function show(string $id)
     {
         $couleur = Couleur::find($id);
-        
         $articles = $couleur->articles;
-       
-            //    return view('couleurs.show', ['toto' => $id, 'couleur' => $couleur]);   
         return view('couleurs.show', compact('couleur', 'articles'));  
       }
 
@@ -65,7 +61,6 @@ class CouleurController extends Controller
     public function edit(string $id)
     {
         $couleur = Couleur::find($id);
-        // return view('couleurs.edit', ['toto' => $id, 'couleur' => $couleurs]);    
         return view('couleurs.edit', compact('couleur'));  
       }
 

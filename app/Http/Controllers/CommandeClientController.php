@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Client;
 use App\Models\CommandeClient;
 use Illuminate\Http\Request;
 
@@ -12,11 +13,7 @@ class CommandeClientController extends Controller
      */
     public function index()
     {
-    // $article = Article::orderBy('id', 'asc')->get();
     $commandeClient = CommandeClient::with(['client', 'article'])->get();
-    // $article = $commandeClient->article_id;
-    // $fleur= $article->fleurs;
-    // return view('articles.index', ['articles' => $article]);  
     return view('commandeClients.index', ['commandeClients' => $commandeClient]);  
   }
 
@@ -60,9 +57,6 @@ class CommandeClientController extends Controller
     {
         $commandeClient = CommandeClient::find($id);
         $adresse_Livraison = $commandeClient->adresseLivraison;
-        // $articles = $commandeClients->articles;
-        
-//    $commandeClient = CommandeClient::with(['client', 'article'])->get();
    return view('commandeClients.edit', ['commandeClient' => $commandeClient], ['adresse_Livraison' => $adresse_Livraison]);     
 
     }
@@ -74,7 +68,7 @@ class CommandeClientController extends Controller
     {
         if ($request->validate([
             'etat_commande' => "string",
-            'livree_temps' => "string"
+            'livree_temps' => "string",
         ])) {
             $commandeClient = CommandeClient::find($id);
             
@@ -83,13 +77,14 @@ class CommandeClientController extends Controller
             
             $livree_temps = $request->input('livree_temps');
             $commandeClient->livre_a_temps = $livree_temps;
+        
 
             $commandeClient->save();
             return redirect()->route('commandeClients.show', $commandeClient->id);
         } else {
             return redirect()->back();
-        }      }
-
+        }     
+     }
     /**
      * Remove the specified resource from storage.
      */

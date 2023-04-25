@@ -13,9 +13,7 @@ class LigneCommandeClientController extends Controller
      */
     public function index()
     {
-    // $article = Article::orderBy('id', 'asc')->get();
     $ligncommandeClient = LigneCommandeClient::get();
-    // return view('articles.index', ['articles' => $article]);  
     return view('commandeClients.index', ['commandeClients' => $ligncommandeClient]);  
     }
 
@@ -43,7 +41,6 @@ class LigneCommandeClientController extends Controller
         $commandeClient = CommandeClient::find($id);
 
     $ligncommandeClient = LigneCommandeClient::get();
-    // return view('articles.index', ['articles' => $article]);  
     return view('commandeClients.index', ['commandeClients' => $ligncommandeClient]); 
     }
 

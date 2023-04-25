@@ -34,7 +34,7 @@
                                             <select name="etat_commande" id="etat_commande" style="width: 180px;">
                                                 <option value="{{$commandeClient->etat}}">{{$commandeClient->etat}}</option>
                                                 <option value="payée">payée</option>
-                                                <option value="confirmee">confirmée</option>
+                                                <option value="enregistrée">enregistrée</option>
                                                 <option value="validée">validée</option>
                                                 <option value="en cours de livraison">en cours de livraison</option>
                                                 <option value="livrée">livrée</option>
@@ -57,98 +57,111 @@
 
                             <div class="flex max-w-lg mb-3">
                                 <span class="font-bold" style="width: 250px;">État de client : </span>
-                                <span>{{$commandeClient->client->etat}}
-                                </span>
-                            </div>
-
-                            <div class="flex max-w-lg mb-3">
-                                <span class="font-bold" style="width: 250px;">Numéro de portable : </span>
-                                <span> {{$commandeClient->client->telephone}}
-                                </span>
-                            </div>
-
-                            <div class="flex max-w-lg mb-3">
-                                <span class="font-bold" style="width: 250px;">E-mail : </span>
-                                <span> {{$commandeClient->client->email}}
-                                </span>
-                            </div>
-
-                            <div class="flex max-w-lg mb-3">
-                                <span class="font-bold" style="width: 250px;">Date de commande: </span>
-                                <span> {{$commandeClient->commande_le}}
-                                </span>
-                            </div>
-
-                            <div class="flex max-w-lg mb-3">
-                                <span class="font-bold" style="width: 250px;">Date de modification : </span>
-                                <span> {{$commandeClient->modifier_le}}
-                                </span>
-                            </div>
-
-                            <div class="mb-3 flex max-w-2xl">
-                                <span class="font-bold" style="width: 250px;">Livraison programée le :</span>
-                                <span> {{$commandeClient->date_livraison_progamme}}</span>
-                            </div>
-
-                            <div class="mb-3 flex max-w-4xl">
-                                <span class="font-bold mr-7" style="width: 220px;">Articles commandées: </span>
-                                <span> @foreach($commandeClient->article as $article)
-                                    <p class="p-2 bg-green-500 rounded mb-1">
-                                        <a href="{{route('articles.show', $article->id)}}">
-                                            - {{$article->fleur->nom_fleur}}
-                                            {{$article->couleur->couleur}}
-                                            {{$article->nombre}}
-                                            {{$article->unite->nom_unite}}
-                                            {{$article->unite->taille}}, <br>
-                                            <span class="text-red-700"> &#215 {{$article->lignCommandeClient[0]->quantite}}</span>
-                                        </a></li>
-                                    </p>
-                                    @endforeach
-                                </span>
-                            </div>
-
-                            <div class="mb-3 flex max-w-2xl">
-                                <span class="font-bold" style="width: 250px;">Lot gagné : </span>
-                                <span> {{ $commandeClient->gainLoterie->lot }}</span>
-                            </div>
-
-                            <div class="mb-3 flex max-w-2xl">
-                                <span class="font-bold" style="width: 250px;">Adresse de livraison : </span>
-                                <span>
-                                    <p> {{ $adresse_Livraison->rue }}</p>
-                                    <p>{{ $adresse_Livraison->complement_rue }}</p>
-                                    <p> {{ $adresse_Livraison->codePostal->code_postal }} {{ $adresse_Livraison->ville->nom_ville }}</p>
-                                </span>
-                            </div>
 
 
-                            <div class="flex">
-                                <form action="{{route('commandeClients.update',$commandeClient->id)}}" method="POST">
-                                    @method ('PUT') @csrf
-                                    <div class="flex flex-col max-w-lg" style="width:250px;">
-                                        <label for="livree_temps" class="block text-sm font-bold text-gray-700">
+      <!-- <select name="etat_client" id="etat_client" style="width: 180px;">
+                                    <option value="{{$commandeClient->client->etat}}">{{$commandeClient->client->etat}}</option>
+                                    <option value="wait">wait</option>
+                                    <option value="blocked">blocked</option>
+                                    
+
+                                </select>
+                            @error('etat_client')
+                            <div class="text-red-500" style="font-size: 0.6em;">{{$message}}</div>
+                            @enderror -->                         
+
+
+                            <span>{{$commandeClient->client->etat}} </span> 
+                        </div>
+
+                        <div class="flex max-w-lg mb-3">
+                            <span class="font-bold" style="width: 250px;">Numéro de portable : </span>
+                            <span> {{$commandeClient->client->telephone}}
+                            </span>
+                        </div>
+
+                        <div class="flex max-w-lg mb-3">
+                            <span class="font-bold" style="width: 250px;">E-mail : </span>
+                            <span> {{$commandeClient->client->email}}
+                            </span>
+                        </div>
+
+                        <div class="flex max-w-lg mb-3">
+                            <span class="font-bold" style="width: 250px;">Date de commande: </span>
+                            <span> {{$commandeClient->commande_le}}
+                            </span>
+                        </div>
+
+                        <div class="flex max-w-lg mb-3">
+                            <span class="font-bold" style="width: 250px;">Date de modification : </span>
+                            <span> {{$commandeClient->modifier_le}}
+                            </span>
+                        </div>
+
+                        <div class="mb-3 flex max-w-2xl">
+                            <span class="font-bold" style="width: 250px;">Livraison programée le :</span>
+                            <span> {{$commandeClient->date_livraison_progamme}}</span>
+                        </div>
+
+                        <div class="mb-3 flex max-w-4xl">
+                            <span class="font-bold mr-7" style="width: 220px;">Articles commandées: </span>
+                            <span> @foreach($commandeClient->article as $article)
+                                <p class="p-2 bg-green-500 rounded mb-1">
+                                    <a href="{{route('articles.show', $article->id)}}">
+                                        - {{$article->fleur->nom_fleur}}
+                                        {{$article->couleur->couleur}}
+                                        {{$article->nombre}}
+                                        {{$article->unite->nom_unite}}
+                                        {{$article->unite->taille}}, <br>
+                                        <span class="text-red-700"> &#215 {{$article->lignCommandeClient[0]->quantite}}</span>
+                                    </a></li>
+                                </p>
+                                @endforeach
+                            </span>
+                        </div>
+
+                        <div class="mb-3 flex max-w-2xl">
+                            <span class="font-bold" style="width: 250px;">Lot gagné : </span>
+                            <span>{{ $commandeClient->gainLoterie ? $commandeClient->gainLoterie->lot : ''}}</span>
+                        </div>
+
+                        <div class="mb-3 flex max-w-2xl">
+                            <span class="font-bold" style="width: 250px;">Adresse de livraison : </span>
+                            <span>
+                                <p> {{ $adresse_Livraison->rue }}</p>
+                                <p>{{ $adresse_Livraison->complement_rue }}</p>
+                                <p> {{ $adresse_Livraison->codePostal->code_postal }} {{ $adresse_Livraison->ville->nom_ville }}</p>
+                            </span>
+                        </div>
+
+
+                        <div class="flex">
+                            <form action="{{route('commandeClients.update',$commandeClient->id)}}" method="POST">
+                                @method ('PUT') @csrf
+                                <div class="flex flex-col max-w-lg" style="width:250px;">
+                                    <label for="livree_temps" class="block text-sm font-bold text-gray-700">
                                         Livrée à temps
-                                        </label>
-                                    </div>
+                                    </label>
+                                </div>
 
-                                    <select name="livree_temps" id="livree_temps">
-                                        <option value="{{$commandeClient->livre_a_temps}}">{{ $commandeClient->livre_a_temps ? 'Oui' : 'Non' }}</option>
-                                        <option value="1">Oui</option>
-                                        <option value="0">Non</option>
+                                <select name="livree_temps" id="livree_temps">
+                                    <option value="{{ $commandeClient->livre_a_temps}}">{{ $commandeClient->livre_a_temps ? 'Oui' : 'Non' }}</option>
+                                    <option value="1">Oui</option>
+                                    <option value="0">Non</option>
 
-                                    </select>
-                                    @error('livree_temps')
-                                    <div class="text-red-500" style="font-size: 0.6em;">{{$message}}</div>
-                                    @enderror
-                            </div>
+                                </select>
+                                @error('livree_temps')
+                                <div class="text-red-500" style="font-size: 0.6em;">{{$message}}</div>
+                                @enderror
                         </div>
-                        <div style="width:100%; padding-left:38%;">
-                            <x-buttons.save :action="route('commandeClients.update', $commandeClient->id)"></x-buttons.save>
-                            <x-buttons.back :action="route('commandeClients.index')"></x-buttons.back>
-                        </div>
+                    </div>
+                    <div style="width:100%; padding-left:38%;">
+                        <x-buttons.save :action="route('commandeClients.update', $commandeClient->id)"></x-buttons.save>
+                        <x-buttons.back :action="route('commandeClients.index')"></x-buttons.back>
                     </div>
                 </div>
             </div>
         </div>
+    </div>
     </div>
 </x-app-layout>

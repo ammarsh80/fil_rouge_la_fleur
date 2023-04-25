@@ -21,10 +21,7 @@ class ArticleController extends Controller
      */
     public function index()
     {
-        // $article = Article::orderBy('id', 'asc')->get();
         $article = Article::with(['fleur', 'couleur'])->get();
-        // $fleur= $article->fleurs;
-        // return view('articles.index', ['articles' => $article]);  
         return view('articles.index', ['articles' => $article]);
     }
 
@@ -61,14 +58,14 @@ class ArticleController extends Controller
             'etat' => "string",
             'date' => "datetime",
             'quantite_stock' => "int",
-            'prix_unitaire' => "numeric",  // à corriger et mettre decimal après test..
+            'prix_unitaire' => "numeric",
             'nombre' => "int",
             'nom_unite' => "string",
             // 'couleur' => "string",
             'categories' => "required",
             // 'evenement' => "string",
             'description' => "string|min:3|max:255|regex:/[a-zA-Z][a-zA-Z0-9À-ÿ]*('[a-zA-Z0-9À-ÿ]+)*/",
-            'image' => "string|min:5|max:255",
+            'image' => "string|min:3|max:255",
 
         ])) {
 
@@ -118,7 +115,6 @@ class ArticleController extends Controller
     {
         $article = Article::find($id);
         return view('articles.show', ['toto' => $id, 'article' => $article]);
-        // return view('articles.show', compact('article','categorie'));
     }
 
     /**
@@ -163,7 +159,7 @@ class ArticleController extends Controller
             // 'evenement' => "string",
             // 'couleur' => "string",
             'description' => "string|min:3|max:255|regex:/[a-zA-Z][a-zA-Z0-9À-ÿ]*('[a-zA-Z0-9À-ÿ]+)*/",
-            'image' => "string|min:5|max:255|",
+            'image' => "string|min:3|max:255|",
 
         ])) {
 

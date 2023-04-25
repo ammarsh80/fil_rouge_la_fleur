@@ -7,9 +7,11 @@ use App\Http\Controllers\CommandeFornController;
 use App\Http\Controllers\CouleurController;
 use App\Http\Controllers\EvenementController;
 use App\Http\Controllers\FleurController;
+use App\Http\Controllers\FraislivraisonController;
 use App\Http\Controllers\GainLoterieController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\UniteController;
+use App\Models\FraisLivraison;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -47,6 +49,7 @@ Route::resource('evenements', EvenementController::class);
 Route::resource('commandeClients', CommandeClientController::class);
 Route::resource('commandeForns', CommandeFornController::class);
 Route::resource('gainLoteries', GainLoterieController::class);
+Route::resource('fraislivraisons', FraislivraisonController::class);
 
 
 Route::post('articles/{id}/attach', [ArticleController::class, 'attach'])->name('articles.attach');

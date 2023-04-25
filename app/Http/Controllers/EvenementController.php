@@ -12,10 +12,7 @@ class EvenementController extends Controller
      */
     public function index()
     {
-        // $article = Article::orderBy('id', 'asc')->get();
         $evenement = Evenement::with(['article'])->get();
-
-        // return view('articles.index', ['articles' => $article]);  
         return view('evenements.index', ['evenements' => $evenement]);    }
 
     /**
@@ -36,11 +33,8 @@ class EvenementController extends Controller
             'nom_evenement' => "required|string|min:3|max:45|regex:/[a-zA-Z][a-zA-Z0-9À-ÿ]*('[a-zA-Z0-9À-ÿ]+)*/",
 
         ])) {
-
             $nom_evenement = $request->input('nom_evenement');
-
             $evenement = new Evenement();
-            // $jeu->evenement_id = $request->input('evenement_id');
             $evenement->nom_evenement = $nom_evenement;
             $evenement->save();
             return redirect()->route('evenements.show', ['evenement' => $evenement->id]);
@@ -57,7 +51,6 @@ class EvenementController extends Controller
     {
         $evenement = Evenement::find($id);
         $article = $evenement->article;
-        //    return view('evenements.show', ['toto' => $id, 'evenements' => $evenement]);   
         return view('evenements.show', compact('evenement', 'article'));    }
 
     /**
@@ -66,7 +59,6 @@ class EvenementController extends Controller
     public function edit(string $id)
     {
         $evenement = Evenement::find($id);
-        // return view('evenements.edit', ['toto' => $id, 'evenement' => $evenements]);    
         return view('evenements.edit', compact('evenement'));
     }
 

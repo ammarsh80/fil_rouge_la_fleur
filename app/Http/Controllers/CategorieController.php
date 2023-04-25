@@ -12,10 +12,7 @@ class CategorieController extends Controller
      */
     public function index()
     {
-        // $article = Article::orderBy('id', 'asc')->get();
         $categorie = Categorie::with(['article'])->get();
-
-        // return view('articles.index', ['articles' => $article]);  
         return view('categories.index', ['categories' => $categorie]);
     }
 
@@ -41,7 +38,6 @@ class CategorieController extends Controller
             $nom_categorie = $request->input('nom_categorie');
 
             $categorie = new Categorie();
-            // $jeu->categorie_id = $request->input('categorie_id');
             $categorie->nom_categorie = $nom_categorie;
             $categorie->save();
             return redirect()->route('categories.show', ['category' => $categorie->id]);
@@ -58,7 +54,6 @@ class CategorieController extends Controller
     {
         $categorie = Categorie::find($id);
         $article = $categorie->article;
-        //    return view('categories.show', ['toto' => $id, 'categories' => $categorie]);   
         return view('categories.show', compact('categorie', 'article'));
     }
 
@@ -68,7 +63,6 @@ class CategorieController extends Controller
     public function edit(string $id)
     {
         $categorie = Categorie::find($id);
-        // return view('categories.edit', ['toto' => $id, 'categorie' => $categories]);    
         return view('categories.edit', compact('categorie'));
     }
 
