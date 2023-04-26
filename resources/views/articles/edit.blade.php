@@ -211,6 +211,7 @@
                         <div class="flex flex-col">
                             <label for="couleur" class="font-bold">Couleur (optionnelle) :</label>
                             <select name="couleur" id="couleur" style="width: 220px;">
+                            <option value="{{$article->couleur->id}}">{{$article->couleur->couleur}}</option>
 
                                 @foreach($couleurs as $couleur)
                                 <option value="{{$couleur->id}}">{{$couleur->couleur}}</option>
