@@ -199,26 +199,25 @@
                         </div>
 
                         <div class="flex flex-wrap flex-col py-1">
-                            <form action="{{route('articles.store')}}" method="POST">
+                            <form method="POST" action="/upload" enctype="multipart/form-data">
                                 @csrf
-                                <div class="flex flex-col max-w-lg">
-                                    <label for="image" class="block text-sm font-bold text-gray-700">
-                                        {{__('Saisir le nom de fichier image (ex: fleur.jpg) ')}}
-                                    </label>
+                                <div class="form-group" style="padding-top:60px ;">
+                                    <label for="image">Télécharger une image</label>
+                                    <input type="file" name="image" id="image" class="form-control-file">
+                                    @error('image')
+                                    <div class="text-red-500" style="font-size: 0.6em;">{{$message}}</div>
+                                    @enderror
                                 </div>
-                                <input type="text" name="image" style="width: 290px;">
-                                @error('image')
-                                <div class="text-red-500" style="font-size: 0.6em;">{{$message}}</div>
-                                @enderror
+
                         </div>
+                        <div>
+                            <x-buttons.save :action="route('articles.store')"></x-buttons.save>
+                            <x-buttons.cancel :action="route('articles.index')"></x-buttons.cancel>
+                            </form>
+                        </div>
+                        </form>
                     </div>
-                    <div>
-                        <x-buttons.save :action="route('articles.store')"></x-buttons.save>
-                        <x-buttons.cancel :action="route('articles.index')"></x-buttons.cancel>
-                    </div>
-                    </form>
                 </div>
             </div>
         </div>
-    </div>
 </x-app-layout>

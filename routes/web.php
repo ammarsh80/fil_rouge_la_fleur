@@ -52,6 +52,12 @@ Route::resource('gainLoteries', GainLoterieController::class);
 Route::resource('fraislivraisons', FraislivraisonController::class);
 
 
+
+Route::post('/articles/{article}', [ArticleController::class, 'update'])->name('articles.update');
+
+
+
+
 Route::post('articles/{id}/attach', [ArticleController::class, 'attach'])->name('articles.attach');
 Route::get('articles/{id_article}/attachCategorie/{id_categorie}', [ArticleController::class, 'attachCategorie'])->name('articles.attachCategorie');
 Route::get('articles/{id_article}/detachCat/{id_categorie}', [ArticleController::class, 'detachCat'])->name('articles.detachCat');

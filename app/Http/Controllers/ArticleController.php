@@ -64,7 +64,7 @@ class ArticleController extends Controller
             // 'couleur' => "string",
             'categories' => "required",
             // 'evenement' => "string",
-            'description' => "string|min:3|max:255|regex:/[a-zA-Z][a-zA-Z0-9À-ÿ]*('[a-zA-Z0-9À-ÿ]+)*/",
+            // 'description' => "string|min:3|max:255|regex:/[a-zA-Z][a-zA-Z0-9À-ÿ]*('[a-zA-Z0-9À-ÿ]+)*/",
             'image' => "string|min:3|max:255",
 
         ])) {
@@ -145,6 +145,12 @@ class ArticleController extends Controller
     public function update(Request $request, string $id)
     {
 
+        
+        if ($request->hasFile('image')) {
+            $image = $request->file('image');
+            
+            $path = $image->store('public/images');
+        }
 
         if ($request->validate([
             'nom_fleur' => "string",
@@ -158,7 +164,7 @@ class ArticleController extends Controller
             // 'categorie' => "string",
             // 'evenement' => "string",
             // 'couleur' => "string",
-            'description' => "string|min:3|max:255|regex:/[a-zA-Z][a-zA-Z0-9À-ÿ]*('[a-zA-Z0-9À-ÿ]+)*/",
+            // 'description' => "string|min:3|max:255|regex:/[a-zA-Z][a-zA-Z0-9À-ÿ]*('[a-zA-Z0-9À-ÿ]+)*/",
             'image' => "string|min:3|max:255|",
 
         ])) {
@@ -202,6 +208,9 @@ class ArticleController extends Controller
             }
 
             $article->save();
+
+         
+            
             // $couleurs->save();
             return redirect()->route('articles.show', $article->id);
         } else {
