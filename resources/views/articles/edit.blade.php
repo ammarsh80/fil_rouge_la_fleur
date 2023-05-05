@@ -255,12 +255,36 @@
                         <form method="POST" action="/upload" enctype="multipart/form-data">
                             @csrf
                             <div class="form-group" style="padding-top:60px ;">
-                                <label for="image">Télécharger une image</label>
-                                <input type="file" name="image" id="image" class="form-control-file">
-                                @error('image')
-                                <div class="text-red-500" style="font-size: 0.6em;">{{$message}}</div>
-                                @enderror
+                                <div class="mb-3">
+
+                                    <label for="image">Image actuelle</label>
+                                    <input type="text" name="image" style="width: 290px;" value="{{$article->image}}">
+                                    @error('image')
+                                    <div class="text-red-500" style="font-size: 0.6em;">{{$message}}</div>
+                                    @enderror
+                                </div>
+
+                                <div>
+                                    <label for="nouvelle_image">Modifier l'image</label>
+                                    <input type="file" name="nouvelle_image" id="image" class="form-control-file">
+                                    @error('nouvelle_image')
+                                    <div class="text-red-500" style="font-size: 0.6em;">{{$message}}</div>
+                                    @enderror
+                                </div>
+
                             </div>
+
+                            <!-- <div class="form-group" style="padding-top:60px ;">
+                                <label for="image">Télécharger une image</label>
+                                <input type="text" name="image" style="width: 290px;" value="{{$article->image}}">
+
+                                <input type="checkbox" name="change_image" id="change_image">
+           
+                                <input type="file" name="image" id="image" class="form-control-file" value="{{$article->image}}>
+                                @error('image')
+                                <div class="text-red-500" style="font-size: 0.6em;">{{ $message }}</div>
+                                @enderror
+                            </div> -->
 
                     </div>
                     <div>

@@ -144,14 +144,6 @@ class ArticleController extends Controller
      */
     public function update(Request $request, string $id)
     {
-
-        
-        if ($request->hasFile('image')) {
-            $image = $request->file('image');
-            
-            $path = $image->store('public/images');
-        }
-
         if ($request->validate([
             'nom_fleur' => "string",
             'etat' => "string",
@@ -161,14 +153,10 @@ class ArticleController extends Controller
             'nombre' => "int",
             'nom_unite' => "string",
             'taille' => "string",
-            // 'categorie' => "string",
-            // 'evenement' => "string",
-            // 'couleur' => "string",
             // 'description' => "string|min:3|max:255|regex:/[a-zA-Z][a-zA-Z0-9À-ÿ]*('[a-zA-Z0-9À-ÿ]+)*/",
             'image' => "string|min:3|max:255|",
-
+            // 'nouvelle_image' => 'file|mimes:jpeg,png,gif|max:2048' // Taille maximale de 2 Mo (2048 Ko)
         ])) {
-
             $nom_fleur = $request->input('nom_fleur');
             $categorie_id = $request->input('categorie');
             $evenement_id = $request->input('evenement');
@@ -180,6 +168,7 @@ class ArticleController extends Controller
             $couleur = $request->input('couleur');
             $nom_unite = $request->input('nom_unite');
             $image = $request->input('image');
+            $nouvelle_image = $request->input('nouvelle_image');
 
             $article = Article::find($id);
 
@@ -193,8 +182,13 @@ class ArticleController extends Controller
             $article->description = $description;
             $article->prix_unitaire = $prix_unitaire;
             $article->nombre = $nombre;
-            $article->image = $image;
-            
+           
+           if (isset($nouvelle_image)){
+            $article->image = $nouvelle_image;
+           }
+           else {
+               $article->image = $image;
+           }
             $article->couleur()->associate($couleur);
 
             $article_id = $article->id;
@@ -206,18 +200,13 @@ class ArticleController extends Controller
 
                 $this->attachCategorie($article_id, $categorie_id);
             }
-
             $article->save();
-
-         
-            
             // $couleurs->save();
             return redirect()->route('articles.show', $article->id);
         } else {
             return redirect()->back();
-        }
     }
-
+    }
 
     /**
      * Remove the specified resource from storage.
@@ -256,13 +245,13 @@ class ArticleController extends Controller
     }
 
 
-/**
- * attahce une cétegorie (trouvée ou crée) à une article
- *
- * @param [int] $article_id
- * @param [int] $categorie_id
- * @return void
- */
+    /**
+     * attahce une cétegorie (trouvée ou crée) à une article
+     *
+     * @param [int] $article_id
+     * @param [int] $categorie_id
+     * @return void
+     */
     public function attachCategorie($article_id, $categorie_id)
     {
         $categorie_id = Categorie::firstOrCreate([        //firstOfCreate() crée une nouveau categorie sauf s'il existe déjà
@@ -289,16 +278,16 @@ class ArticleController extends Controller
      */
     public function attachEvenement($article_id, $evenement_id)
     {
-        $evenement_id = Evenement::firstOrCreate([        
+        $evenement_id = Evenement::firstOrCreate([
             'id' => $evenement_id
         ]);
-      
+
 
         $article = Article::find($article_id);
         $evenement = $article->evenement;
-        $bool = $evenement->contains($evenement_id);  
+        $bool = $evenement->contains($evenement_id);
         if (!$bool) {
-            $article->evenement()->attach($evenement_id);     
+            $article->evenement()->attach($evenement_id);
         }
         return redirect()->route('articles.edit', $article->id);
         die;
