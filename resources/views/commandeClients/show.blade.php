@@ -1,7 +1,7 @@
 <x-app-layout>
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-orange-300 leading-tight">
-            {{ __('list of all orders') }}
+            {{ __('Détails de Commande numéro:') }} {{$commandeClient->id}}
 
         </h2>
     </x-slot>
@@ -52,13 +52,17 @@
 
                             <div class="flex max-w-lg mb-3">
                                 <span class="font-bold" style="width: 250px;">Date de commande: </span>
-                                <span> {{$commandeClient->commande_le}}
+                                <span> 
+                                {{ \Carbon\Carbon::parse($commandeClient->commande_le)->addHours(2) }}
+
                                 </span>
                             </div>
 
                             <div class="flex max-w-lg mb-3">
                                 <span class="font-bold" style="width: 250px;">Date de modification : </span>
-                                <span> {{$commandeClient->modifier_le}}
+                                <span> 
+                                                                        {{ \Carbon\Carbon::parse($commandeClient->modifier_le)->addHours(2) }}
+
                                 </span>
                             </div>
                             <!-- <div class="flex max-w-lg mb-3">
@@ -76,7 +80,8 @@
 
                             <div class="mb-3 flex max-w-4xl">
                                 <span class="font-bold mr-7" style="width: 220px">Articles commandées: </span>
-                                <span> @foreach($commandeClient->article as $article)
+                                <span>
+                                    @foreach($commandeClient->article as $article)
                                     <p class="p-2 bg-green-500 rounded mb-1">
                                         <a href="{{route('articles.show', $article->id)}}">
                                             - {{$article->fleur->nom_fleur}}
@@ -84,12 +89,13 @@
                                             {{$article->nombre}}
                                             {{$article->unite->nom_unite}}
                                             {{$article->unite->taille}}, <br>
-                                            <span class="text-red-700"> &#215 {{$article->lignCommandeClient[0]->quantite}}</span>
-
-                                        </a></li>
+                                          
+                                            <span class="text-red-700"> &#215; {{$quantite = $article->pivot->quantite;}}</span>
+                                        </a>
                                     </p>
-
                                     @endforeach
+                                </span>
+
                                 </span>
                             </div>
 

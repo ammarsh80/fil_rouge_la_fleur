@@ -67,7 +67,20 @@ class CommandeClient extends Model
      */
     public function article()
     {
-        return $this->belongsToMany(Article::class, 'lf_ligne_commande_client');
+        // return $this->belongsToMany(Article::class, 'lf_ligne_commande_client');
+        return $this->belongsToMany(Article::class, 'lf_ligne_commande_client', 'commande_client_id', 'article_id')
+                ->withPivot('quantite', 'quantite_modifie_le');
     }
 
+
+
+    // public function lignCommandeClient()
+    // {
+    //     return $this->hasMany(LigneCommandeClient::class, 'commande_client_id');
+    // }
+
+    // public function articlesLignCommandeClient()
+    // {
+    //     return $this->hasManyThrough(Article::class, LigneCommandeClient::class, 'commande_client_id', 'article_id');
+    // }
 }

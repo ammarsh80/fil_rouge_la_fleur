@@ -26,7 +26,12 @@ class ArticleController extends Controller
     }
 
     /**
-     * Show the form for creating a new resource.
+     * Affiche le formulaire pour créer une nouvelle ressource.
+     * Crée une nouvelle instance de l'article.
+     * Obtient toutes les instances de fleurs, couleurs, unités, catégories et événements.
+     * Passe les instances d'article, fleurs, couleurs, unités, catégories et événements 
+     * à la vue de création d'article.
+     * @return \Illuminate\View\View La vue de création d'article.
      */
     public function create()
     {
@@ -40,7 +45,8 @@ class ArticleController extends Controller
 
         return view('articles.create', [
             'article' => $article, 'articles' => $articles, 'couleurs' => $couleurs,
-            'unites' => $unites, 'fleurs' => $fleurs, 'categories' => $categories, 'evenements' => $evenements,
+            'unites' => $unites, 'fleurs' => $fleurs, 'categories' => $categories,
+            'evenements' => $evenements,
         ]);
     }
 
@@ -51,26 +57,23 @@ class ArticleController extends Controller
      */
     public function store(Request $request)
     {
-
-
+        // Validation des données entrées dans le formulaire
         if ($request->validate([
             'nom_fleur' => "string",
-            'etat' => "string",
+            'etat' => "string|min:3|max:45|regex:/[a-zA-Z][a-zA-Z0-9À-ÿ]*('[a-zA-Z0-9À-ÿ]+)*/",
             'date' => "datetime",
-            'quantite_stock' => "int",
-            'prix_unitaire' => "numeric",
-            'nombre' => "int",
-            'nom_unite' => "string",
-            // 'couleur' => "string",
+            'quantite_stock' => "int|min:0",
+            'prix_unitaire' => "numeric|min:0.01|max:99.99",
+            'nombre' => "int|min:0",
+            'nom_unite' => "",
+            'couleur' => "string",
             'categories' => "required",
-            // 'evenement' => "string",
-            // 'description' => "string|min:3|max:255|regex:/[a-zA-Z][a-zA-Z0-9À-ÿ]*('[a-zA-Z0-9À-ÿ]+)*/",
+            'description' => "string|min:3|max:255|regex:/[a-zA-Z][a-zA-Z0-9À-ÿ]*('[a-zA-Z0-9À-ÿ]+)*/",
             'image' => "string|min:3|max:255",
-
         ])) {
 
+            // Récupération des données du formulaire
             $nom_fleur = $request->input('nom_fleur');
-
             $etat = $request->input('etat');
             $date_inventaire = $request->input('date_inventaire');
             $quantite_stock = $request->input('quantite_stock');
@@ -78,17 +81,16 @@ class ArticleController extends Controller
             $nombre = $request->input('nombre');
             $categorie_id = $request->input('categories');
             $evenement_id = $request->input('evenements');
-
             $couleur = $request->input('couleur');
             $nom_unite = $request->input('nom_unite');
             $description = $request->input('description');
             $image = $request->input('image');
-            $article = new Article();
 
+            // Création d'une nouvelle instance d'article
+            $article = new Article();
             $article->couleurs_id = $couleur;
             $article->unites_id = $nom_unite;
             $article->fleurs_id = $nom_fleur;
-
             $article->etat = $etat;
             $article->date_inventaire = $date_inventaire;
             $article->quantite_stock = $quantite_stock;
@@ -96,14 +98,21 @@ class ArticleController extends Controller
             $article->prix_unitaire = $prix_unitaire;
             $article->nombre = $nombre;
             $article->image = $image;
+
+            // Enregistrement de l'article en base de données
             $article->save();
+
+            // Récupération de l'ID de l'article enregistré
             $article_id = $article->id;
 
+            // Attachement des catégories et événements sélectionnés à l'article enregistré
             $article->categorie()->attach($categorie_id);
             $article->evenement()->attach($evenement_id);
 
+            // Redirection vers la page d'affichage de l'article enregistré
             return redirect()->route('articles.show', $article->id);
         } else {
+            // En cas de validation échouée, redirection vers la page précédente
             return redirect()->back();
         }
     }
@@ -148,12 +157,12 @@ class ArticleController extends Controller
             'nom_fleur' => "string",
             'etat' => "string",
             'date' => "datetime",
-            'quantite_stock' => "int",
-            'prix_unitaire' => "numeric",  // à corriger et mettre decimal après test..
-            'nombre' => "int",
+            'quantite_stock' => "int|min:0",
+            'prix_unitaire' => "numeric|min:0.01|max:99.99",
+            'nombre' => "int|min:0",
             'nom_unite' => "string",
             'taille' => "string",
-            // 'description' => "string|min:3|max:255|regex:/[a-zA-Z][a-zA-Z0-9À-ÿ]*('[a-zA-Z0-9À-ÿ]+)*/",
+            'description' => "string|min:3|max:255|regex:/[a-zA-Z][a-zA-Z0-9À-ÿ]*('[a-zA-Z0-9À-ÿ]+)*/",
             'image' => "string|min:3|max:255|",
             // 'nouvelle_image' => 'file|mimes:jpeg,png,gif|max:2048' // Taille maximale de 2 Mo (2048 Ko)
         ])) {
@@ -182,13 +191,12 @@ class ArticleController extends Controller
             $article->description = $description;
             $article->prix_unitaire = $prix_unitaire;
             $article->nombre = $nombre;
-           
-           if (isset($nouvelle_image)){
-            $article->image = $nouvelle_image;
-           }
-           else {
-               $article->image = $image;
-           }
+
+            if (isset($nouvelle_image)) {
+                $article->image = $nouvelle_image;
+            } else {
+                $article->image = $image;
+            }
             $article->couleur()->associate($couleur);
 
             $article_id = $article->id;
@@ -205,7 +213,7 @@ class ArticleController extends Controller
             return redirect()->route('articles.show', $article->id);
         } else {
             return redirect()->back();
-    }
+        }
     }
 
     /**

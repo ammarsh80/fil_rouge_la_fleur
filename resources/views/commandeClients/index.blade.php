@@ -32,7 +32,10 @@
                                 <td class="max-sm:m-0 max-sm:p-1 pl-3">
                                     <p>{{$commandeClient->id}}</p>
                                 </td>
-                                <td class=" text-center"><a href="{{route('commandeClients.show', $commandeClient->id)}}" class="ml-5">{{$commandeClient->commande_le}}</a></td>
+                                <td class=" text-center"><a href="{{route('commandeClients.show', $commandeClient->id)}}" class="ml-5">
+                                    {{ \Carbon\Carbon::parse($commandeClient->commande_le)->addHours(2) }}
+
+                                </a></td>
                                
                                 <!-- <td class=" text-center">
                                     @foreach($commandeClient->article as $article)

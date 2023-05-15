@@ -140,14 +140,20 @@ public function alerteStock($id)
     $article = Article::find($id);
     $alerteStock = $article->quantite_stock;
 
+    if ($alerteStock == 0) {
+        $details = [
+            'title' => 'Alerte stock',
+            'body' => "ATTENTION ! l'article numéro ($id) est en rupture de stock"
+        ];
+        // Mail::to('ammarsh80@gmail.com')->send(new AlerteStock($article));
+        return "ATTENTION ! l'article numéro ($id) est en rupture de stock";
+    }
     if ($alerteStock < 10) {
         $details = [
             'title' => 'Alerte stock',
             'body' => "ATTENTION ! l'article numéro ($id) sera bientôt en rupture de stock"
         ];
-
         // Mail::to('ammarsh80@gmail.com')->send(new AlerteStock($article));
-
         return "ATTENTION ! l'article numéro ($id) sera bientôt en rupture de stock";
     }
 }
